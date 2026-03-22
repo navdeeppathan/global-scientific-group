@@ -32,13 +32,13 @@ export default function Header() {
 
           {/* DESKTOP NAV */}
           <nav className="hidden md:flex gap-8 text-[18px] font-medium">
-            <NavLink to="/" className={navClass}>
+            <NavLink to="/main" className={navClass}>
               Home
             </NavLink>
-            <NavLink to="/about" className={navClass}>
+            <NavLink to="/main/about" className={navClass}>
               About Us
             </NavLink>
-            <NavLink to="/conferences" className={navClass}>
+            <NavLink to="/main/conferences" className={navClass}>
               <div
                 onMouseEnter={() => setShowConference(true)}
                 onMouseLeave={() => setShowConference(false)}
@@ -48,18 +48,18 @@ export default function Header() {
                 </div>
               </div>
             </NavLink>
-            <NavLink to="/journals" className={navClass}>
+            <NavLink to="/main/journals" className={navClass}>
               <div className="flex items-center gap-1">
                 Journals <ChevronDown size={20} />
               </div>
             </NavLink>
-            <NavLink to="/blogs" className={navClass}>
+            <NavLink to="/main/blogs" className={navClass}>
               Blogs
             </NavLink>
-            <NavLink to="/gallery" className={navClass}>
+            <NavLink to="/main/gallery" className={navClass}>
               Gallery
             </NavLink>
-            <NavLink to="/contact" className={navClass}>
+            <NavLink to="/main/contact" className={navClass}>
               Contact Us
             </NavLink>
           </nav>
@@ -111,14 +111,14 @@ export default function Header() {
         {/* MENU ITEMS */}
         <nav className="flex flex-col px-6">
           <NavLink
-            to="/"
+            to="/main"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
             Home
           </NavLink>
           <NavLink
-            to="/about"
+            to="/main/about"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
@@ -160,28 +160,28 @@ export default function Header() {
           </div>
           {/* </NavLink> */}
           <NavLink
-            to="/journals"
+            to="/main/journals"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
             Journals
           </NavLink>
           <NavLink
-            to="/blogs"
+            to="/main/blogs"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
             Blogs
           </NavLink>
           <NavLink
-            to="/gallery"
+            to="/main/gallery"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
             Gallery
           </NavLink>
           <NavLink
-            to="/contact"
+            to="/main/contact"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >
