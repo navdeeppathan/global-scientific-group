@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
@@ -16,6 +16,8 @@ export default function Header() {
     { name: "Venue", path: "/conference/venue" },
     { name: "Contact us", path: "/conference/contact" },
   ];
+
+  const navigate = useNavigate();
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 flex justify-center mt-4">
@@ -53,7 +55,10 @@ export default function Header() {
               </NavLink>
             ))}
 
-            <button className="hidden md:block bg-cyan-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-300 transition">
+            <button
+              onClick={() => navigate("/conference/registration-form")}
+              className="hidden md:block bg-cyan-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-300 transition"
+            >
               Register Now
             </button>
           </nav>
@@ -76,7 +81,10 @@ export default function Header() {
               </NavLink>
             ))}
 
-            <button className="w-full bg-cyan-400 text-black py-2 rounded-full font-semibold">
+            <button
+              onClick={() => navigate("/conference/registration-form")}
+              className="w-full bg-cyan-400 text-black py-2 rounded-full font-semibold"
+            >
               Register Now
             </button>
           </div>
