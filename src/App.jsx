@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import FirstLine from "./containers/FirstLine";
 import SecondLine from "./containers/SecondLine";
 import ThirdLine from "./containers/ThirdLine";
+import WhatsAppFloat from "./components/WhatsAppFloat";
 
 export default function App() {
   return (
@@ -27,6 +28,7 @@ export default function App() {
         
          */}
       </Routes>
+      <WhatsAppFloat />
     </BrowserRouter>
   );
 }
