@@ -38,7 +38,7 @@ export default function Header() {
             <NavLink to="/main/about" className={navClass}>
               About Us
             </NavLink>
-            <NavLink to="/main/conferences" className={navClass}>
+            <NavLink to="/conference" className={navClass}>
               <div
                 onMouseEnter={() => setShowConference(true)}
                 onMouseLeave={() => setShowConference(false)}
@@ -48,7 +48,7 @@ export default function Header() {
                 </div>
               </div>
             </NavLink>
-            <NavLink to="/main/journals" className={navClass}>
+            <NavLink to="/journals" className={navClass}>
               <div className="flex items-center gap-1">
                 Journals <ChevronDown size={20} />
               </div>
