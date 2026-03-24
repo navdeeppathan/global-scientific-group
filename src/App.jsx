@@ -28,7 +28,7 @@ export default function App() {
         
          */}
       </Routes>
-      <WhatsAppFloat />
+      {/* <WhatsAppFloat /> */}
     </BrowserRouter>
   );
 }
