@@ -1,5 +1,6 @@
 import { Phone, Mail, MessageCircle, Download, Link } from "lucide-react";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const AboutJournals = () => {
   return (
@@ -241,7 +242,7 @@ function EditorialBoard() {
   return (
     <div>
       {/* TITLE */}
-      <h2 className="text-[26px] md:text-[36px] font-semibold text-[#133C49] mb-6">
+      <h2 className="text-[26px] md:text-[42px] font-semibold text-[#133C49] mb-6">
         Editorial Board
       </h2>
 
@@ -250,33 +251,30 @@ function EditorialBoard() {
         {members.map((m, i) => (
           <div
             key={i}
-            className="bg-[#CFE3EA] rounded-xl p-5 flex gap-4 items-start hover:shadow-md transition"
+            className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[24px] p-[24px] flex gap-4 items-start hover:shadow-md transition"
           >
             {/* ICON */}
-            <div className="w-[44px] h-[44px] bg-[#E6F3F7] rounded-full flex items-center justify-center shrink-0">
-              <svg
-                className="w-6 h-6 text-[#00AEEF]"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                viewBox="0 0 24 24"
-              >
-                <path d="M16 14a4 4 0 10-8 0" />
-                <circle cx="12" cy="7" r="3" />
-              </svg>
+            <div className="w-[60px] h-[60px]">
+              <img src="/p2.png" alt="" className="w-full h-full" />
             </div>
 
             {/* TEXT */}
             <div>
-              <h3 className="text-[15px] font-semibold text-[#133C49]">
+              <h3 className="text-[15px] md:text-[20px] font-semibold text-[#133C49]">
                 {m.name}
               </h3>
 
-              <p className="text-[12px] text-[#00AEEF] mt-1">{m.role}</p>
+              <p className="text-[12px] md:text-[14px] font-medium text-[#00849F] mt-1">
+                {m.role}
+              </p>
 
-              <p className="text-[12px] text-[#4A6B73] mt-1">{m.uni}</p>
+              <p className="text-[12px] md:text-[14px] text-[#4F5C60] mt-1">
+                {m.uni}
+              </p>
 
-              <p className="text-[12px] text-[#4A6B73]">{m.country}</p>
+              <p className="text-[12px] md:text-[14px] text-[#4F5C60]">
+                {m.country}
+              </p>
             </div>
           </div>
         ))}
@@ -302,18 +300,22 @@ function ArticlesSection() {
     },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <div className="flex flex-col md:flex-row gap-6">
       {/* ================= LEFT SIDEBAR ================= */}
-      <div className="bg-[#123F47] text-white rounded-xl p-5 w-full md:w-[260px] h-fit">
-        <h3 className="text-[15px] font-semibold mb-4">Browse by Volume</h3>
+      <div className="bg-[#133C49] text-white rounded-[24px] p-[16px] w-full md:w-[260px] h-fit">
+        <h3 className="text-[15px] md:text-[20px] font-semibold mb-4">
+          Browse by Volume
+        </h3>
 
         {/* YEAR BLOCK */}
         {["2025", "2024", "2023"].map((year, i) => (
-          <div key={i} className="mb-5 text-[13px]">
-            <p className="text-[#9EC3CC] font-medium mb-2">{year}</p>
+          <div key={i} className="mb-5 text-[14px]">
+            <p className="text-[#FFFFFF] font-semibold mb-2">{year}</p>
 
-            <div className="space-y-1">
+            <div className="space-y-1 text-[#FFFFFF] text=[14px] font-normal">
               <p className="hover:text-[#00D4FF] cursor-pointer">
                 Vol 15, Issue 12
               </p>
@@ -324,7 +326,7 @@ function ArticlesSection() {
                 Vol 15, Issue 10
               </p>
 
-              <p className="text-[#00D4FF] text-[12px] mt-1 cursor-pointer">
+              <p className="text-[#01D4FF] text-[12px] font-semibold mt-1 cursor-pointer">
                 View all issues...
               </p>
             </div>
@@ -343,20 +345,22 @@ function ArticlesSection() {
           {articles.map((a, i) => (
             <div
               key={i}
-              className="bg-[#CFE3EA] rounded-xl p-5 hover:shadow-md transition"
+              className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[16px] p-[24px] hover:shadow-md transition"
             >
               {/* TITLE */}
-              <h3 className="text-[15px] font-semibold text-[#133C49]">
+              <h3 className="text-[15px] md:text-[20px] font-semibold text-[#133C49]">
                 {a.title}
               </h3>
 
               {/* AUTHORS */}
-              <p className="text-[12px] text-[#00AEEF] mt-1">{a.authors}</p>
+              <p className="text-[12px] md:text-[14px] text-[#00849F] mt-1">
+                {a.authors}
+              </p>
 
               {/* META */}
-              <p className="text-[12px] text-[#4A6B73] mt-2">
+              <p className="text-[12px] md:text-[14px] font-normal text-[#4F5C60] mt-2">
                 December 2025 &nbsp; Vol 15, Issue 12 &nbsp; pp. 145-162 &nbsp;
-                <span className="text-[#00AEEF] cursor-pointer">
+                <span className="text-[#00849F] cursor-pointer">
                   DOI: 10.1234/ijaer.2025.12.145
                 </span>
               </p>
@@ -366,7 +370,10 @@ function ArticlesSection() {
 
         {/* BUTTON */}
         <div className="flex justify-center mt-6">
-          <button className="border border-[#00AEEF] text-[#00AEEF] px-5 py-2 rounded-full text-[13px] hover:bg-[#00AEEF] hover:text-white transition">
+          <button
+            onClick={() => navigate("/journals/article-details")}
+            className="border border-[#00849F] font-semibold text-[#00849F] px-[16px] py-[8px] rounded-[12px] text-[14px] hover:bg-[#00AEEF] hover:text-white transition"
+          >
             View all Articles
           </button>
         </div>
@@ -379,26 +386,26 @@ function AuthorGuidelines() {
   return (
     <div>
       {/* CARD */}
-      <div className="bg-[#CFE3EA] rounded-xl p-6 md:p-8">
+      <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[12px] p-[12px] md:p-[16px]">
         {/* HEADER */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-6">
-          <h2 className="text-[22px] md:text-[26px] font-semibold text-[#133C49]">
+          <h2 className="text-[22px] md:text-[28px] font-semibold text-[#133C49]">
             Author Guidelines
           </h2>
 
-          <button className="mt-4 md:mt-0 inline-flex items-center gap-2 bg-[#00D4FF] text-black px-4 py-2 rounded-full text-[13px] font-medium hover:opacity-90">
-            <Download size={16} />
+          <button className="mt-4 md:mt-0 inline-flex items-center gap-2 bg-[#01D4FF] text-[#133C49] px-[16px] py-[8px] rounded-[12px] text-[14px] font-medium hover:opacity-90">
+            <img src="/down.png" alt="" className="w-[24px] h-[24px]" />
             Download Template
           </button>
         </div>
 
         {/* ================= SECTION 1 ================= */}
         <div className="mb-6">
-          <h3 className="text-[16px] font-semibold text-[#133C49] mb-2">
+          <h3 className="text-[16px] md:text-[24px] font-semibold text-[#133C49] mb-2">
             Manuscript Preparation
           </h3>
 
-          <ul className="text-[13px] text-[#4A6B73] space-y-1 pl-4 list-disc">
+          <ul className="text-[14px] text-[#4F5C60] space-y-1 pl-4 list-disc">
             <li>
               Manuscripts should be prepared in Microsoft Word format (.doc or
               .docx)
@@ -411,11 +418,11 @@ function AuthorGuidelines() {
 
         {/* ================= SECTION 2 ================= */}
         <div className="mb-6">
-          <h3 className="text-[16px] font-semibold text-[#133C49] mb-2">
+          <h3 className="text-[16px] md:text-[24px] font-semibold text-[#133C49] mb-2">
             Submission Requirements
           </h3>
 
-          <ul className="text-[13px] text-[#4A6B73] space-y-1 pl-4 list-disc">
+          <ul className="text-[14px] text-[#4F5C60] space-y-1 pl-4 list-disc">
             <li>Cover letter addressed to the Editor-in-Chief</li>
             <li>Declaration of originality and ethics compliance</li>
             <li>Author contributions statement</li>
@@ -425,11 +432,11 @@ function AuthorGuidelines() {
 
         {/* ================= SECTION 3 ================= */}
         <div>
-          <h3 className="text-[16px] font-semibold text-[#133C49] mb-2">
+          <h3 className=" text-[16px] md:text-[24px] font-semibold text-[#133C49] mb-2">
             Reference Style
           </h3>
 
-          <p className="text-[13px] text-[#4A6B73]">
+          <p className="text-[14px] text-[#4F5C60]">
             Use APA 7th edition citation style for all references.
           </p>
         </div>
@@ -450,9 +457,9 @@ function IndexingMetrics() {
   return (
     <div>
       {/* MAIN CARD */}
-      <div className="bg-[#CFE3EA] rounded-xl p-6 md:p-8">
+      <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[12px] p-[12px] md:p-[16px]">
         {/* ================= INDEXING ================= */}
-        <h2 className="text-[22px] md:text-[26px] font-semibold text-[#133C49] mb-6">
+        <h2 className="text-[22px] md:text-[28px] font-semibold text-[#133C49] mb-6">
           Indexing & Abstracting
         </h2>
 
@@ -460,37 +467,39 @@ function IndexingMetrics() {
           {indexes.map((item, i) => (
             <div
               key={i}
-              className="bg-[#DCECF1] rounded-xl p-5 flex flex-col items-center justify-center text-center hover:shadow-sm transition"
+              className="bg-[#E7F9FF] rounded-[16px] px-[16px] pt-[24px] pb-[16px] flex flex-col items-center justify-center text-center hover:shadow-sm transition"
             >
               {/* ICON */}
-              <div className="w-[40px] h-[40px] bg-[#CFE3EA] rounded-lg flex items-center justify-center mb-3">
-                <Link className="w-5 h-5 text-[#00AEEF]" />
+              <div className="w-[49px] h-[49px] ">
+                <img src="/lock2.png" alt="" className="w-full h-full" />
               </div>
 
               {/* TEXT */}
-              <p className="text-[13px] font-medium text-[#133C49]">{item}</p>
+              <p className="text-[13px] md:text-[20px] font-medium text-[#00849F]">
+                {item}
+              </p>
             </div>
           ))}
         </div>
 
         {/* ================= METRICS ================= */}
-        <h3 className="text-[18px] font-semibold text-[#133C49] mb-4">
+        <h3 className="text-[18px] md:text-[28px] font-semibold text-[#133C49] mb-4">
           Journal Metrics
         </h3>
 
         <div className="grid md:grid-cols-2 gap-4">
           {/* METRIC CARD */}
-          <div className="bg-[#DCECF1] rounded-xl p-5">
-            <p className="text-[13px] text-[#4A6B73] mb-2">
+          <div className="bg-[#E7F9FF] rounded-[16px] p-[16px]">
+            <p className="text-[18px] text-[#00849F] mb-2">
               Impact Factor (2024)
             </p>
-            <p className="text-[20px] font-semibold text-[#00AEEF]">3.245</p>
+            <p className="text-[20px] font-semibold text-[#00849F]">3.245</p>
           </div>
 
           {/* METRIC CARD */}
-          <div className="bg-[#DCECF1] rounded-xl p-5">
-            <p className="text-[13px] text-[#4A6B73] mb-2">H-Index</p>
-            <p className="text-[20px] font-semibold text-[#00AEEF]">42</p>
+          <div className="bg-[#E7F9FF] rounded-[16px] p-[16px]">
+            <p className="text-[18px] text-[#00849F] mb-2">H-Index</p>
+            <p className="text-[20px] font-semibold text-[#00849F]">42</p>
           </div>
         </div>
       </div>

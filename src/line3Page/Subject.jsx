@@ -72,49 +72,49 @@ function CategoriesGrid() {
   ];
 
   return (
-    <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
+    <div className=" px-6 md:px-16 py-10">
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
         {categories.map((cat, i) => (
           <div
             key={i}
-            className="bg-[#CFE3EA] border border-[#BFD6DE] rounded-xl p-5 hover:shadow-md transition"
+            className="bg-[#E7F9FF] border border-[#C6E4EF] rounded-[16px] p-[16px] hover:shadow-md transition"
           >
             {/* ICON */}
-            <div className="w-[42px] h-[42px] bg-[#E6F3F7] rounded-lg flex items-center justify-center mb-3">
-              <Link className="w-5 h-5 text-[#00AEEF]" />
+            <div className="w-[50px] h-[50px] mb-3">
+              <img src="/lock2.png" alt="" className="w-full h-full" />
             </div>
 
             {/* TITLE */}
-            <h3 className="text-[16px] font-semibold text-[#133C49]">
+            <h3 className="text-[20px] font-semibold text-[#133C49]">
               {cat.title}
             </h3>
 
             {/* DESC */}
-            <p className="text-[12px] text-[#4A6B73] mt-1">{cat.desc}</p>
+            <p className="text-[14px] text-[#4F5C60] mt-1">{cat.desc}</p>
 
             {/* DIVIDER */}
-            <div className="border-t border-[#BFD6DE] my-4"></div>
+            <div className="border-t border-[#C6E4EF] my-4"></div>
 
             {/* STATS */}
             <div className="flex items-center justify-between">
               <div className="flex gap-6">
                 <div>
-                  <p className="text-[18px] font-semibold text-[#133C49]">
+                  <p className="text-[18px] md:text-[24px] font-semibold text-[#133C49]">
                     {cat.journals}
                   </p>
-                  <p className="text-[11px] text-[#4A6B73]">Journals</p>
+                  <p className="text-[14px] text-[#4F5C60]">Journals</p>
                 </div>
 
                 <div>
-                  <p className="text-[18px] font-semibold text-[#133C49]">
+                  <p className="text-[18px] md:text-[24px] font-semibold text-[#133C49]">
                     {cat.articles.toLocaleString()}
                   </p>
-                  <p className="text-[11px] text-[#4A6B73]">Articles</p>
+                  <p className="text-[14px] text-[#4F5C60]">Articles</p>
                 </div>
               </div>
 
               {/* VIEW LINK */}
-              <button className="text-[#00AEEF] text-[12px] font-medium hover:underline">
+              <button className="text-[#00849F] text-[14px] font-semibold hover:underline">
                 View
               </button>
             </div>
