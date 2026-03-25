@@ -24,15 +24,15 @@ export default function SubmitManuscript() {
   ];
 
   return (
-    <div>
+    <div className="bg-[#E7F9FF] min-h-screen">
       {/* ================= HERO + STEPPER ================= */}
       <div className="bg-[#0B2C36] px-6 md:px-16 py-16 text-center pt-40">
         <div className="max-w-5xl mx-auto">
-          <h1 className="text-[28px] md:text-[36px] font-semibold text-white">
-            Submit Your <span className="text-[#00D4FF]">Manuscript</span>
+          <h1 className="text-[28px] md:text-[42px] font-semibold text-white">
+            Submit Your <span className="text-[#01D4FF]">Manuscript</span>
           </h1>
 
-          <p className="mt-2 text-[#A9C7CE] text-[14px]">
+          <p className="mt-2 text-[#FFFFFF] text-[14px] md:text-[18px]">
             Complete all steps to submit your research for peer review.
           </p>
 
@@ -49,20 +49,28 @@ export default function SubmitManuscript() {
                 return (
                   <div key={i} className="flex flex-col items-center">
                     <div
-                      className={`w-10 h-10 rounded-full flex items-center justify-center z-10 ${
+                      className={`w-[48px] h-[48px] rounded-full bg-[#13404F] border  border-[#235262] flex items-center justify-center z-10 ${
                         isCompleted || isActive
-                          ? "bg-[#00D4FF] text-black"
-                          : "bg-[#123F47] text-[#A9C7CE]"
+                          ? " text-[#01D4FF]"
+                          : "text-[#FFFFFF]/70"
                       }`}
                     >
-                      {isCompleted ? <Check size={16} /> : <Icon size={16} />}
+                      {isCompleted ? (
+                        <img
+                          src="/tick-circle2.png"
+                          alt=""
+                          className="w-[24px] h-[24px]"
+                        />
+                      ) : (
+                        <Icon size={16} />
+                      )}
                     </div>
 
                     <p
-                      className={`mt-2 text-[12px] ${
+                      className={`mt-2 text-[12px] md:text-[18px] ${
                         isCompleted || isActive
-                          ? "text-[#00D4FF]"
-                          : "text-[#A9C7CE]"
+                          ? "text-[#01D4FF]"
+                          : "text-[#D5F4FF]"
                       }`}
                     >
                       {stepItem.label}
@@ -99,10 +107,10 @@ export default function SubmitManuscript() {
 }
 function AuthorDetailsForm({ onNext, onPrev }) {
   return (
-    <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
-      <div className="max-w-5xl mx-auto bg-[#CFE3EA] rounded-2xl p-6 md:p-8 shadow-sm">
+    <div className="px-6 py-10">
+      <div className="max-w-7xl mx-auto bg-[#D5F4FF] rounded-[16px] p-[16px] shadow-sm">
         {/* TITLE */}
-        <h2 className="text-[16px] font-semibold text-[#133C49] mb-6">
+        <h2 className="text-[16px] md:text-[20px] font-semibold text-[#133C49] mb-6">
           Author Details
         </h2>
 
@@ -110,55 +118,56 @@ function AuthorDetailsForm({ onNext, onPrev }) {
         <div className="grid md:grid-cols-2 gap-4">
           {/* NAME */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
-              Corresponding Author Name <span className="text-red-500">*</span>
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+              Corresponding Author Name{" "}
+              <span className="text-[#FF3939]">*</span>
             </label>
             <input
-              className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+              className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
               placeholder="John Smith"
             />
           </div>
 
           {/* EMAIL */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
-              Email Address <span className="text-red-500">*</span>
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+              Email Address <span className="text-[#FF3939]">*</span>
             </label>
             <input
-              className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+              className="p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
               placeholder="johnsmith@example.com"
             />
           </div>
 
           {/* INSTITUTION */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
-              Institution/Affiliation <span className="text-red-500">*</span>
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+              Institution/Affiliation <span className="text-[#FF3939]">*</span>
             </label>
             <input
-              className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+              className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
               placeholder="Dept. of Engineering, MIT, USA"
             />
           </div>
 
           {/* ORCID */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
               ORCID ID (Optional)
             </label>
             <input
-              className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+              className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
               placeholder="0000-0002-4853-8029"
             />
           </div>
 
           {/* CO AUTHORS */}
           <div className="md:col-span-2">
-            <label className="text-[12px] text-[#133C49] mb-1 block">
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
               Co-Authors (if any)
             </label>
             <textarea
-              className="w-full px-3 py-3 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none h-[140px]"
+              className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none h-[140px]"
               placeholder="List of co-authors with their affiliations, one per line."
             ></textarea>
           </div>
@@ -167,14 +176,14 @@ function AuthorDetailsForm({ onNext, onPrev }) {
         {/* BUTTONS */}
         <div className="flex justify-between mt-6">
           <button
-            className="px-4 py-2 bg-[#E6EEF2] text-[#133C49] rounded-lg text-[13px]"
+            className="px-[16px] py-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[#133C49] rounded-[12px] text-[14px]"
             onClick={onPrev}
           >
             Previous
           </button>
 
           <button
-            className="px-5 py-2 bg-[#00D4FF] text-black rounded-lg text-[13px] font-medium"
+            className="px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-[12px] text-[14px] font-medium"
             onClick={onNext}
           >
             Continue
@@ -190,10 +199,10 @@ function AuthorDetailsForm({ onNext, onPrev }) {
 }
 function ManuscriptInfoForm({ onNext, onPrev }) {
   return (
-    <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
-      <div className="max-w-5xl mx-auto bg-[#CFE3EA] rounded-2xl p-6 md:p-8 shadow-sm">
+    <div className="px-6 py-10">
+      <div className="max-w-7xl mx-auto bg-[#D5F4FF] rounded-[16px] p-[16px] shadow-sm">
         {/* TITLE */}
-        <h2 className="text-[16px] font-semibold text-[#133C49] mb-6">
+        <h2 className="text-[16px] md:text-[20px] font-semibold text-[#133C49] mb-6">
           Manuscript Information
         </h2>
 
@@ -201,20 +210,20 @@ function ManuscriptInfoForm({ onNext, onPrev }) {
         <div className="grid md:grid-cols-2 gap-4">
           {/* JOURNAL */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
-              Select Journal <span className="text-red-500">*</span>
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+              Select Journal <span className="text-[#FF3939]">*</span>
             </label>
-            <select className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none">
+            <select className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none">
               <option>Choose Journal</option>
             </select>
           </div>
 
           {/* TYPE */}
           <div>
-            <label className="text-[12px] text-[#133C49] mb-1 block">
-              Article Type <span className="text-red-500">*</span>
+            <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+              Article Type <span className="text-[#FF3939]">*</span>
             </label>
-            <select className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none">
+            <select className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none">
               <option>Select Type</option>
             </select>
           </div>
@@ -222,22 +231,22 @@ function ManuscriptInfoForm({ onNext, onPrev }) {
 
         {/* TITLE */}
         <div className="mt-4">
-          <label className="text-[12px] text-[#133C49] mb-1 block">
-            Manuscript Title <span className="text-red-500">*</span>
+          <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+            Manuscript Title <span className="text-[#FF3939]">*</span>
           </label>
           <input
-            className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+            className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
             placeholder="Enter the full title of your Manuscript"
           />
         </div>
 
         {/* ABSTRACT */}
         <div className="mt-4">
-          <label className="text-[12px] text-[#133C49] mb-1 block">
-            Abstract <span className="text-red-500">*</span>
+          <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
+            Abstract <span className="text-[#FF3939]">*</span>
           </label>
           <textarea
-            className="w-full px-3 py-3 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none h-[140px]"
+            className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none h-[140px]"
             placeholder="Provide a structural abstract of your research"
           ></textarea>
 
@@ -249,11 +258,11 @@ function ManuscriptInfoForm({ onNext, onPrev }) {
 
         {/* KEYWORDS */}
         <div className="mt-4">
-          <label className="text-[12px] text-[#133C49] mb-1 block">
+          <label className="text-[12px] md:text-[14px] font-medium text-[#000000] mb-1 block">
             Keywords (5–7, comma-separated)
           </label>
           <input
-            className="w-full px-3 py-2 rounded-lg bg-[#E6F3F7] border border-[#BFD6DE] text-[13px] outline-none"
+            className="w-full p-[12px] rounded-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[14px] outline-none"
             placeholder="Machine Learning, Predictive Maintenance, Industrial Maintenance, IoT"
           />
         </div>
@@ -261,14 +270,14 @@ function ManuscriptInfoForm({ onNext, onPrev }) {
         {/* BUTTONS */}
         <div className="flex justify-between mt-6">
           <button
-            className="px-4 py-2 bg-[#E6EEF2] text-[#133C49] rounded-lg text-[13px]"
+            className="px-[16px] py-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[#133C49] rounded-[12px] text-[14px]"
             onClick={onPrev}
           >
             Previous
           </button>
 
           <button
-            className="px-5 py-2 bg-[#00D4FF] text-black rounded-lg text-[13px] font-medium"
+            className="px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-[12px] text-[14px] font-medium"
             onClick={onNext}
           >
             Continue
@@ -286,9 +295,9 @@ function ManuscriptInfoForm({ onNext, onPrev }) {
 function UploadFiles({ onNext, onPrev }) {
   return (
     <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
-      <div className="max-w-5xl mx-auto bg-[#CFE3EA] rounded-2xl p-6 md:p-8 shadow-sm">
+      <div className="max-w-7xl mx-auto bg-[#D5F4FF] rounded-[16px] p-[16px] shadow-sm">
         {/* TITLE */}
-        <h2 className="text-[16px] font-semibold text-[#133C49] mb-6">
+        <h2 className="text-[16px] md:text-[20px] font-semibold text-[#133C49] mb-6">
           Upload Files
         </h2>
 
@@ -314,14 +323,14 @@ function UploadFiles({ onNext, onPrev }) {
         {/* BUTTONS */}
         <div className="flex justify-between mt-6">
           <button
-            className="px-4 py-2 bg-[#E6EEF2] text-[#133C49] rounded-lg text-[13px]"
+            className="px-[16px] py-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[#133C49] rounded-[12px] text-[14px]"
             onClick={onPrev}
           >
             Previous
           </button>
 
           <button
-            className="px-5 py-2 bg-[#00D4FF] text-black rounded-lg text-[13px] font-medium"
+            className="px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-[12px] text-[14px] font-medium"
             onClick={onNext}
           >
             Continue
@@ -334,24 +343,27 @@ function UploadFiles({ onNext, onPrev }) {
 
 function UploadCard({ title, desc, required }) {
   return (
-    <div className="border-2 border-dashed border-[#BFD6DE] rounded-xl p-8 text-center mb-5 bg-[#D6EAF0]">
+    <div className="border-2 border-dashed border-[#C6E4EF] rounded-xl pt-[40px] pb-[40px] text-center mb-5 bg-[#E7F9FF]">
       {/* ICON */}
       <div className="flex justify-center mb-3">
-        <UploadCloud className="w-6 h-6 text-[#133C49]" />
+        {/* <UploadCloud className="w-6 h-6 text-[#133C49]" /> */}
+        <img src="/blackcloud.png" alt="" className="w-[46px] h-[46px]" />
       </div>
 
       {/* TITLE */}
-      <h3 className="text-[14px] font-semibold text-[#133C49]">
-        {title} {required && <span className="text-red-500">*</span>}
+      <h3 className="text-[14px] md:text-[28px] font-semibold text-[#133C49]">
+        {title} {required && <span className="text-[#FF3939]">*</span>}
       </h3>
 
       {/* DESC */}
-      <p className="text-[12px] text-[#4A6B73] mt-1 mb-3">{desc}</p>
+      <p className="text-[12px] md:text-[24px] text-[#A9ACB4] mt-1 mb-3">
+        {desc}
+      </p>
 
       {/* BUTTON */}
-      <label className="inline-block cursor-pointer">
+      <label className="inline-block cursor-pointer mt-4">
         <input type="file" className="hidden" />
-        <span className="px-3 py-1 text-[12px] border border-[#00D4FF] text-[#00D4FF] rounded-full hover:bg-[#00D4FF] hover:text-black transition">
+        <span className="px-[16px] py-[12px] text-[14px] border bg-[#D5F4FF] border-[#00849F] text-[#133C49] rounded-[12px] hover:bg-[#00D4FF] hover:text-black transition">
           Choose file
         </span>
       </label>
@@ -392,16 +404,16 @@ function Declarations({ onNext, onPrev }) {
   ];
 
   return (
-    <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
-      <div className="max-w-5xl mx-auto bg-[#CFE3EA] rounded-2xl p-6 md:p-8 shadow-sm">
+    <div className=" px-6  py-10">
+      <div className="max-w-7xl mx-auto bg-[#D5F4FF] rounded-[16px] p-[16px] shadow-sm">
         {/* TITLE */}
-        <h2 className="text-[16px] font-semibold text-[#133C49] mb-4">
+        <h2 className="text-[16px] md:text-[20px] font-semibold text-[#133C49] mb-4">
           Declarations & Ethics
         </h2>
 
         {/* INFO BOX */}
-        <div className="flex items-center gap-2 bg-[#E6EEF2] text-[#133C49] text-[12px] px-4 py-2 rounded-lg mb-5">
-          <span className="w-5 h-5 flex items-center justify-center bg-[#00D4FF] text-black rounded-full text-[10px]">
+        <div className="flex items-center gap-2 bg-[#FFFFFF]  text-[#4F5C60] text-[14px] p-[16px] rounded-[12px] mb-5">
+          <span className="w-5 h-5 flex items-center justify-center bg-[#00849F] text-white rounded-full text-[10px]">
             i
           </span>
           Please carefully read and confirm each declaration. All statements are
@@ -413,22 +425,24 @@ function Declarations({ onNext, onPrev }) {
           {items.map((item, i) => (
             <label
               key={i}
-              className="flex gap-3 items-start bg-[#E6EEF2] p-4 rounded-xl cursor-pointer"
+              className="flex gap-3 items-start bg-[#FFFFFF] p-[16px] rounded-[12px] cursor-pointer"
             >
               {/* CHECKBOX */}
               <input
                 type="checkbox"
-                className="mt-1 w-4 h-4 accent-[#00D4FF]"
+                className="mt-1 w-[20px] h-[20px] rounded-[4px] accent-[#E2E8F0]"
               />
 
               {/* TEXT */}
               <div>
-                <h3 className="text-[13px] font-semibold text-[#133C49]">
+                <h3 className="text-[13px] md:text-[18px] font-semibold text-[#4F5C60]">
                   {item.title}{" "}
-                  {item.required && <span className="text-red-500">*</span>}
+                  {item.required && <span className="text-[#FF3939]">*</span>}
                 </h3>
 
-                <p className="text-[12px] text-[#4A6B73] mt-1">{item.desc}</p>
+                <p className="text-[12px] md:text-[14px] font-normal text-[#4F5C60] mt-1">
+                  {item.desc}
+                </p>
               </div>
             </label>
           ))}
@@ -437,14 +451,14 @@ function Declarations({ onNext, onPrev }) {
         {/* BUTTONS */}
         <div className="flex justify-between mt-6">
           <button
-            className="px-4 py-2 bg-[#E6EEF2] text-[#133C49] rounded-lg text-[13px]"
+            className="px-[16px] py-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[#133C49] rounded-[12px] text-[14px]"
             onClick={onPrev}
           >
             Previous
           </button>
 
           <button
-            className="px-5 py-2 bg-[#00D4FF] text-black rounded-lg text-[13px] font-medium"
+            className="px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-[12px] text-[14px] font-medium"
             onClick={onNext}
           >
             Continue
@@ -461,10 +475,10 @@ function Declarations({ onNext, onPrev }) {
 
 function ReviewSubmit({ onPrev }) {
   return (
-    <div className="bg-[#D6E3E7] px-6 md:px-16 py-10">
-      <div className="max-w-5xl mx-auto bg-[#CFE3EA] rounded-2xl p-6 md:p-8 shadow-sm">
+    <div className="px-6 py-10">
+      <div className="max-w-7xl mx-auto bg-[#D5F4FF] rounded-[16px] p-[16px] shadow-sm">
         {/* TITLE */}
-        <h2 className="text-[16px] font-semibold text-[#133C49] mb-6">
+        <h2 className="text-[16px] md:text-[20px] font-semibold text-[#133C49] mb-6">
           Review Your Submission
         </h2>
 
@@ -496,22 +510,22 @@ function ReviewSubmit({ onPrev }) {
 
         {/* ================= FILES ================= */}
         <Section title="Uploaded Files">
-          <div className="space-y-2 text-[13px] text-[#133C49]">
-            <FileItem name="sample-abstract-form.docx" />
-            <FileItem name="sample-abstract-form.docx" />
+          <div className="space-y-2 text-[14px] text-[#4F5C60]">
+            <FileItem name="Manuscript: sample-abstract-form.docx" />
+            <FileItem name="Manuscript: sample-abstract-form.docx" />
           </div>
         </Section>
 
         {/* ================= DECLARATIONS ================= */}
         <Section title="Declarations">
-          <div className="flex items-center gap-2 text-[13px] text-[#133C49]">
-            <CheckCircle className="w-4 h-4 text-[#00D4FF]" />
+          <div className="flex items-center gap-2 text-[14px] text-[#4F5C60]">
+            <img src="/tick-circle3.png" alt="" className="w-[24px] h-[24px]" />
             All required declarations confirmed
           </div>
         </Section>
 
         {/* ================= NOTE ================= */}
-        <div className="bg-[#E6EEF2] text-[12px] text-[#4A6B73] p-3 rounded-lg mt-4">
+        <div className="bg-[#FFFFFF] border border-[#C6E4EF] text-[14px] text-[#4F5C60] p-[16px] rounded-[12px] mt-4">
           By clicking "Submit Manuscript", you agree to the journal’s terms and
           conditions and confirm that all information provided is accurate.
         </div>
@@ -519,14 +533,14 @@ function ReviewSubmit({ onPrev }) {
         {/* BUTTONS */}
         <div className="flex justify-between mt-6">
           <button
-            className="px-4 py-2 bg-[#E6EEF2] text-[#133C49] rounded-lg text-[13px]"
+            className="px-[16px] py-[12px] bg-[#E7F9FF] border border-[#C6E4EF] text-[#133C49] rounded-[12px] text-[14px]"
             onClick={onPrev}
           >
             Previous
           </button>
 
-          <button className="flex items-center gap-2 px-5 py-2 bg-[#00D4FF] text-black rounded-lg text-[13px] font-medium">
-            <Send size={14} />
+          <button className="flex items-center gap-2 px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-lg text-[14px] font-normal">
+            <Send size={20} />
             Submit Manuscript
           </button>
         </div>
@@ -537,17 +551,19 @@ function ReviewSubmit({ onPrev }) {
 
 function Section({ title, children }) {
   return (
-    <div className="bg-[#E6EEF2] rounded-xl p-4 mb-4">
-      <h3 className="text-[13px] font-semibold text-[#133C49] mb-2">{title}</h3>
-      <div className="text-[13px] text-[#4A6B73] space-y-1">{children}</div>
+    <div className="bg-[#FFFFFF] border border-[#C6E4EF] rounded-[12px] p-[16px] mb-4">
+      <h3 className="text-[13px] md:text-[18px] font-semibold text-[#4F5C60] mb-2">
+        {title}
+      </h3>
+      <div className="text-[14px] text-[#4F5C60] space-y-1">{children}</div>
     </div>
   );
 }
 
 function FileItem({ name }) {
   return (
-    <div className="flex items-center gap-2">
-      <CheckCircle className="w-4 h-4 text-[#00D4FF]" />
+    <div className="flex  items-center gap-2">
+      <img src="/tick-circle3.png" alt="" className="w-[24px] h-[24px]" />
       {name}
     </div>
   );
