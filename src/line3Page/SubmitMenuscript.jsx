@@ -37,7 +37,7 @@ export default function SubmitManuscript() {
           </p>
 
           {/* STEPPER */}
-          <div className="relative mt-10">
+          {/* <div className="relative mt-10">
             <div className="absolute top-5 left-0 right-0 h-[2px] bg-[#2C5B63]"></div>
 
             <div className="grid grid-cols-2 md:grid-cols-5 gap-6 relative">
@@ -68,6 +68,53 @@ export default function SubmitManuscript() {
 
                     <p
                       className={`mt-2 text-[12px] md:text-[18px] ${
+                        isCompleted || isActive
+                          ? "text-[#01D4FF]"
+                          : "text-[#D5F4FF]"
+                      }`}
+                    >
+                      {stepItem.label}
+                    </p>
+                  </div>
+                );
+              })}
+            </div>
+          </div> */}
+          {/* STEPPER */}
+          <div className="relative mt-10">
+            {/* LINE → only visible on md+ */}
+            <div className="hidden md:block absolute top-5 left-[10%] right-[10%] h-[2px] bg-[#2C5B63]"></div>
+
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-6 relative">
+              {steps.map((stepItem, i) => {
+                const Icon = stepItem.icon;
+                const isActive = i === step;
+                const isCompleted = i < step;
+
+                return (
+                  <div key={i} className="flex flex-col items-center">
+                    {/* CIRCLE */}
+                    <div
+                      className={`w-[42px] h-[42px] md:w-[48px] md:h-[48px] rounded-full bg-[#13404F] border border-[#235262] flex items-center justify-center z-10 ${
+                        isCompleted || isActive
+                          ? "text-[#01D4FF]"
+                          : "text-[#FFFFFF]/70"
+                      }`}
+                    >
+                      {isCompleted ? (
+                        <img
+                          src="/tick-circle2.png"
+                          alt=""
+                          className="w-[20px] h-[20px] md:w-[24px] md:h-[24px]"
+                        />
+                      ) : (
+                        <Icon size={14} className="md:size-[16px]" />
+                      )}
+                    </div>
+
+                    {/* LABEL */}
+                    <p
+                      className={`mt-2 text-[11px] md:text-[16px] text-center leading-tight ${
                         isCompleted || isActive
                           ? "text-[#01D4FF]"
                           : "text-[#D5F4FF]"
