@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import http from "../service/http";
+
 const team = [
   {
     id: 1,
@@ -26,6 +29,24 @@ const team = [
 ];
 
 export default function TeamSection() {
+  const [team, setTeam] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchTeam = async () => {
+      try {
+        const resTeam = await http.get(`/core/team/`);
+        setTeam(resTeam?.data?.results || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchTeam();
+  }, []);
+
   return (
     <section className="bg-[#133C49] py-16 px-6 md:px-16 text-white">
       <div className="max-w-7xl mx-auto text-center">
@@ -44,7 +65,7 @@ export default function TeamSection() {
               {/* Arch Image Container */}
               <div className="w-full flex justify-center mb-4">
                 <img
-                  src={member.image}
+                  src={member.photo || "/t3.png"}
                   alt={member.name}
                   className="w-full h-full object-cover"
                 />
@@ -54,7 +75,7 @@ export default function TeamSection() {
               <h3 className="font-semibold text-[20px] mb-1">{member.name}</h3>
 
               {/* Role */}
-              <p className="text-[14px] text-[#FFFFFF]">{member.role}</p>
+              <p className="text-[14px] text-[#FFFFFF]">{member.designation}</p>
             </div>
           ))}
         </div>

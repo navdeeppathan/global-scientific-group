@@ -38,7 +38,7 @@ const testimonials = [
   },
 ];
 
-export default function Testimonials() {
+export default function Testimonials({ testimonials }) {
   const swiperRef = useRef(null);
   const [progress, setProgress] = useState(25);
 
@@ -70,22 +70,25 @@ export default function Testimonials() {
             1024: { slidesPerView: 4 },
           }}
         >
-          {testimonials.map((item) => (
+          {testimonials?.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="bg-[#244F5C] rounded-2xl overflow-hidden">
                 {/* Image */}
                 <img
-                  src={item.image}
+                  src={item?.photo}
                   className="w-full h-[280px] sm:h-[300px] md:h-[320px] object-cover"
                 />
 
                 {/* Content */}
                 <div className="p-4 text-left">
                   <h3 className="font-semibold text-white text-[18px] md:text-[20px]">
-                    {item.name}
+                    {item?.name}
                   </h3>
                   <p className="text-[13px] md:text-[14px] text-[#cfeaed]">
-                    {item.role}
+                    {item?.designation}
+                  </p>
+                  <p className="text-[10px] md:text-[12px] text-[#cfeaed] mt-2">
+                    {item?.message}
                   </p>
                 </div>
               </div>

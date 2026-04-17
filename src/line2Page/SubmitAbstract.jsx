@@ -1,10 +1,28 @@
 "use client";
 
-import { use } from "react";
-import { useNavigate } from "react-router-dom";
+import { use, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import http from "../service/http";
 
 export default function SubmitAbstract() {
   const navigate = useNavigate();
+
+  const { slug } = useParams();
+  const [abstract, setAbstract] = useState(null);
+
+  useEffect(() => {
+    const fetchAbstract = async () => {
+      try {
+        const res = await http.get(`abstracts/${slug}/abstract/submit/`);
+        setAbstract(res.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    fetchAbstract();
+  }, []);
+
   return (
     <div className="w-full min-h-screen bg-[#E7F9FF] py-16 flex justify-center pt-40">
       <div className="w-[90%]">
@@ -109,7 +127,9 @@ export default function SubmitAbstract() {
           <div className="hidden md:block">
             <div className="">
               <img
-                src="/person.png"
+                // src="/person.png"
+
+                src={abstract?.side_image.image}
                 alt="person"
                 className="w-full h-full object-cover"
               />

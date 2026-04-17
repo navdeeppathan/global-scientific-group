@@ -19,7 +19,7 @@ export default function App() {
 
         <Route path="/" element={<Navigate to="/main" replace />} />
         <Route path="/main/*" element={<FirstLine />} />
-        <Route path="/conference/*" element={<SecondLine />} />
+        <Route path="/conference/:slug/*" element={<SecondLine />} />
         <Route path="/journals/*" element={<ThirdLine />} />
 
         {/*<Route path="/conferences" element={<div>Conferences</div>} />

@@ -1,9 +1,9 @@
 import { Phone, Mail, MessageCircle } from "lucide-react";
-const ScientificCommittee = () => {
+const ScientificCommittee = ({ data }) => {
   return (
     <div className="bg-[#E7F9FF]">
       <CommitteeHero />
-      <OrganizingCommittee />
+      <OrganizingCommittee data={data?.committee} />
     </div>
   );
 };
@@ -41,33 +41,79 @@ function CommitteeHero() {
   );
 }
 
-function OrganizingCommittee() {
-  const members = [
-    {
-      name: "Prof. David Anderson",
-      role: "Conference Chair",
-      org: "Harvard Medical School USA",
-      img: "/t1.jpg",
-    },
-    {
-      name: "Prof. Elena Martinez",
-      role: "Co-Chair",
-      org: "Harvard Medical School USA",
-      img: "/team1.jpg",
-    },
-    {
-      name: "Dr. Sarah Johnson",
-      role: "Scientific Director",
-      org: "Harvard Medical School USA",
-      img: "/team2.jpg",
-    },
-    {
-      name: "Dr. Michael Thompson",
-      role: "Programmer Director",
-      org: "Harvard Medical School USA",
-      img: "/team3.jpg",
-    },
-  ];
+// function OrganizingCommittee({ data = [] }) {
+//   const members = [
+//     {
+//       name: "Prof. David Anderson",
+//       role: "Conference Chair",
+//       org: "Harvard Medical School USA",
+//       img: "/t1.jpg",
+//     },
+//     {
+//       name: "Prof. Elena Martinez",
+//       role: "Co-Chair",
+//       org: "Harvard Medical School USA",
+//       img: "/team1.jpg",
+//     },
+//     {
+//       name: "Dr. Sarah Johnson",
+//       role: "Scientific Director",
+//       org: "Harvard Medical School USA",
+//       img: "/team2.jpg",
+//     },
+//     {
+//       name: "Dr. Michael Thompson",
+//       role: "Programmer Director",
+//       org: "Harvard Medical School USA",
+//       img: "/team3.jpg",
+//     },
+//   ];
+
+//   return (
+//     <div className="w-full py-16 bg-[#c7d6db] flex justify-center">
+//       <div className="w-[90%] max-w-6xl">
+//         {/* Heading */}
+//         <h2 className="text-[28px] md:text-[42px] font-semibold text-[#1c3b44] mb-10">
+//           Organizing <span className="text-[#00849F]">Committee</span>
+//         </h2>
+
+//         {/* Grid */}
+//         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
+//           {members.map((item, index) => (
+//             <div
+//               key={index}
+//               className="bg-[#154351] rounded-[16px] p-6 text-center text-white shadow-md"
+//             >
+//               {/* Image */}
+//               <div className="w-[244px] h-[244px] mx-auto rounded-full overflow-hidden mb-4">
+//                 <img
+//                   src={item.img}
+//                   alt={item.name}
+//                   className="w-full h-full object-cover"
+//                 />
+//               </div>
+
+//               {/* Name */}
+//               <h3 className="text-[20px] text-[#FFFFFF] font-semibold">
+//                 {item.name}
+//               </h3>
+
+//               {/* Role */}
+//               <p className="text-[14px] text-[#FFFFFF] mt-1">{item.role}</p>
+
+//               {/* Org */}
+//               <p className="text-[14px] text-white/70 mt-1">{item.org}</p>
+//             </div>
+//           ))}
+//         </div>
+//       </div>
+//     </div>
+//   );
+// }
+
+function OrganizingCommittee({ data = [] }) {
+  // ✅ filter only enabled members
+  const members = data.filter((item) => item.is_enabled);
 
   return (
     <div className="w-full py-16 bg-[#c7d6db] flex justify-center">
@@ -79,15 +125,15 @@ function OrganizingCommittee() {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {members.map((item, index) => (
+          {members.map((item) => (
             <div
-              key={index}
+              key={item.id}
               className="bg-[#154351] rounded-[16px] p-6 text-center text-white shadow-md"
             >
               {/* Image */}
               <div className="w-[244px] h-[244px] mx-auto rounded-full overflow-hidden mb-4">
                 <img
-                  src={item.img}
+                  src={item.photo || "/default-user.png"}
                   alt={item.name}
                   className="w-full h-full object-cover"
                 />
@@ -101,8 +147,10 @@ function OrganizingCommittee() {
               {/* Role */}
               <p className="text-[14px] text-[#FFFFFF] mt-1">{item.role}</p>
 
-              {/* Org */}
-              <p className="text-[14px] text-white/70 mt-1">{item.org}</p>
+              {/* Organization */}
+              <p className="text-[14px] text-white/70 mt-1">
+                {item.organization}
+              </p>
             </div>
           ))}
         </div>

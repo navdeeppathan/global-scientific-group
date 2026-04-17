@@ -10,86 +10,107 @@ import {
 } from "lucide-react";
 import Testimonials from "../components/Testimonials";
 import HeroSectionMobile from "../components/HeroSectionMobile";
+import { useNavigate } from "react-router-dom";
+import http from "../service/http";
 
-const Home = () => {
-  const events = [
-    {
-      id: 1,
-      title: "Business World Event Introduction",
-      time: "10.00 AM - 12.00 PM",
-      location: "26/C Asana, New York",
-      image: "/b1.png",
-      speakers: [
-        {
-          name: "Alex Roberton",
-          role: "UI/UX Designer",
-          img: "/p1.jpg",
-        },
-        {
-          name: "Alexys Archer",
-          role: "WP Developer",
-          img: "/p2.jpg",
-        },
-      ],
-    },
-    {
-      id: 2,
-      title: "Digital Marketing Conference",
-      time: "01.00 PM - 03.00 PM",
-      location: "New Jersey Hall",
-      image: "/b2.png",
-      speakers: [
-        {
-          name: "John Smith",
-          role: "Marketing Lead",
-          img: "/p1.jpg",
-        },
-        {
-          name: "Emma Watson",
-          role: "SEO Expert",
-          img: "/p2.jpg",
-        },
-      ],
-    },
-    {
-      id: 3,
-      title: "Startup Growth Summit",
-      time: "04.00 PM - 06.00 PM",
-      location: "Silicon Valley",
-      image: "/b1.png",
-      speakers: [
-        {
-          name: "David Warner",
-          role: "Founder",
-          img: "/p1.jpg",
-        },
-        {
-          name: "Lisa Ray",
-          role: "Investor",
-          img: "/p2.jpg",
-        },
-      ],
-    },
-    {
-      id: 4,
-      title: "Tech Innovation Meetup",
-      time: "07.00 PM - 09.00 PM",
-      location: "San Francisco",
-      image: "/b2.png",
-      speakers: [
-        {
-          name: "Chris Evans",
-          role: "Engineer",
-          img: "/p1.jpg",
-        },
-        {
-          name: "Sophia Lee",
-          role: "Product Manager",
-          img: "/p2.jpg",
-        },
-      ],
-    },
-  ];
+const Home = ({ data, events }) => {
+  // const [data, setData] = useState(null);
+  // const [loading, setLoading] = useState(true);
+  // const [events, setEvents] = useState([]);
+
+  // useEffect(() => {
+  //   const fetchCore = async () => {
+  //     try {
+  //       const res = await http.get("/core/");
+  //       setData(res.data);
+  //       setEvents(res.data.gallery_events); // ✅ store full API response
+  //     } catch (err) {
+  //       console.error(err);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   fetchCore();
+  // }, []);
+  // const events = [
+  //   {
+  //     id: 1,
+  //     title: "Business World Event Introduction",
+  //     time: "10.00 AM - 12.00 PM",
+  //     location: "26/C Asana, New York",
+  //     image: "/b1.png",
+  //     speakers: [
+  //       {
+  //         name: "Alex Roberton",
+  //         role: "UI/UX Designer",
+  //         img: "/p1.jpg",
+  //       },
+  //       {
+  //         name: "Alexys Archer",
+  //         role: "WP Developer",
+  //         img: "/p2.jpg",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 2,
+  //     title: "Digital Marketing Conference",
+  //     time: "01.00 PM - 03.00 PM",
+  //     location: "New Jersey Hall",
+  //     image: "/b2.png",
+  //     speakers: [
+  //       {
+  //         name: "John Smith",
+  //         role: "Marketing Lead",
+  //         img: "/p1.jpg",
+  //       },
+  //       {
+  //         name: "Emma Watson",
+  //         role: "SEO Expert",
+  //         img: "/p2.jpg",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 3,
+  //     title: "Startup Growth Summit",
+  //     time: "04.00 PM - 06.00 PM",
+  //     location: "Silicon Valley",
+  //     image: "/b1.png",
+  //     speakers: [
+  //       {
+  //         name: "David Warner",
+  //         role: "Founder",
+  //         img: "/p1.jpg",
+  //       },
+  //       {
+  //         name: "Lisa Ray",
+  //         role: "Investor",
+  //         img: "/p2.jpg",
+  //       },
+  //     ],
+  //   },
+  //   {
+  //     id: 4,
+  //     title: "Tech Innovation Meetup",
+  //     time: "07.00 PM - 09.00 PM",
+  //     location: "San Francisco",
+  //     image: "/b2.png",
+  //     speakers: [
+  //       {
+  //         name: "Chris Evans",
+  //         role: "Engineer",
+  //         img: "/p1.jpg",
+  //       },
+  //       {
+  //         name: "Sophia Lee",
+  //         role: "Product Manager",
+  //         img: "/p2.jpg",
+  //       },
+  //     ],
+  //   },
+  // ];
   return (
     <div>
       {/* <HeroSection /> */}
@@ -223,14 +244,14 @@ const Home = () => {
 
           {/* Cards */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-            {events.map((event) => (
+            {events?.map((event) => (
               <div
                 key={event.id}
                 className="bg-[#154351] rounded-2xl p-4 flex flex-col sm:flex-row gap-4"
               >
                 {/* Image */}
                 <img
-                  src={event.image}
+                  src={"/b1.png"}
                   alt=""
                   className="w-full sm:w-[160px] md:w-[190px] h-[190px] object-cover rounded-xl"
                 />
@@ -244,7 +265,7 @@ const Home = () => {
                       <span className="w-5 h-5 flex items-center justify-center rounded-full bg-white/20">
                         <Clock size={12} strokeWidth={2.5} />
                       </span>
-                      {event.time}
+                      {event.event_date}
                     </div>
 
                     {/* Divider */}
@@ -255,7 +276,8 @@ const Home = () => {
                       <span className="w-5 h-5 flex items-center justify-center rounded-full bg-white/20">
                         <MapPin size={12} strokeWidth={2.5} />
                       </span>
-                      {event.location}
+                      {/* {event.location} */}
+                      26/C Asana, New York
                     </div>
                   </div>
 
@@ -266,7 +288,7 @@ const Home = () => {
 
                   {/* Speakers */}
                   <div className="flex flex-col sm:flex-row gap-3 mb-4 bg-[#133C49] rounded-xl p-2">
-                    {event.speakers.map((sp, i) => (
+                    {/* {event.speakers.map((sp, i) => (
                       <div
                         key={i}
                         className="flex items-center gap-3 px-2 py-2"
@@ -284,7 +306,22 @@ const Home = () => {
                           </p>
                         </div>
                       </div>
-                    ))}
+                    ))} */}
+
+                    <div className="flex items-center gap-3 px-2 py-2">
+                      <img
+                        src={"/p2.jpg"}
+                        className="w-10 h-10 sm:w-[45px] sm:h-[45px] rounded-lg object-cover"
+                      />
+                      <div className="space-y-2">
+                        <p className="text-[12px] sm:text-[13px] font-semibold">
+                          Chris Evans
+                        </p>
+                        <p className="text-[10px] text-[#a9c3c7]">
+                          Product Manager
+                        </p>
+                      </div>
+                    </div>
                   </div>
 
                   {/* Button */}
@@ -301,8 +338,9 @@ const Home = () => {
         </div>
       </section>
 
-      <BlogSection />
-      <Testimonials />
+      {/* <BlogSection /> */}
+      <BlogSection blogs={data?.blogs || []} />
+      <Testimonials testimonials={data?.testimonials || []} />
       <Gallery />
     </div>
   );
@@ -482,40 +520,41 @@ function HeroSection() {
   );
 }
 
-const blogs = [
-  {
-    id: 1,
-    image: "/b12.png",
-    author: "John Carter",
-    avatar: "/p1.jpg",
-    date: "29 Dec, 2025",
-    title:
-      "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
-    desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
-  },
-  {
-    id: 2,
-    image: "/b2.png",
-    author: "John Carter",
-    avatar: "/p1.jpg",
-    date: "29 Dec, 2025",
-    title:
-      "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
-    desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
-  },
-  {
-    id: 3,
-    image: "/b3.png",
-    author: "John Carter",
-    avatar: "/p1.jpg",
-    date: "29 Dec, 2025",
-    title:
-      "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
-    desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
-  },
-];
+// const blogs = [
+//   {
+//     id: 1,
+//     image: "/b12.png",
+//     author: "John Carter",
+//     avatar: "/p1.jpg",
+//     date: "29 Dec, 2025",
+//     title:
+//       "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
+//     desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
+//   },
+//   {
+//     id: 2,
+//     image: "/b2.png",
+//     author: "John Carter",
+//     avatar: "/p1.jpg",
+//     date: "29 Dec, 2025",
+//     title:
+//       "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
+//     desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
+//   },
+//   {
+//     id: 3,
+//     image: "/b3.png",
+//     author: "John Carter",
+//     avatar: "/p1.jpg",
+//     date: "29 Dec, 2025",
+//     title:
+//       "Highlights from CGT Summit 2025: A Step Forward in Cell & Gene Therapy",
+//     desc: "The 2nd Global Cell & Gene Therapy (CGT) Summit was held from July 7–9, 2025, in Orlando, Florida, and brought together an exceptional lineup of scientists, clinicians, industry leaders, regulatory authorities, and innovators from around the world...",
+//   },
+// ];
 
-function BlogSection() {
+function BlogSection({ blogs }) {
+  const navigate = useNavigate();
   return (
     <section className="bg-[#154351] py-16 px-6 md:px-16 text-white">
       <div className="max-w-7xl mx-auto text-center">
@@ -538,7 +577,10 @@ function BlogSection() {
 
         {/* Button */}
         <div className="mt-12 flex justify-center">
-          <button className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full shadow-sm hover:bg-[#00c2ea] transition">
+          <button
+            onClick={() => navigate("/main/blogs")}
+            className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full shadow-sm hover:bg-[#00c2ea] transition"
+          >
             View More
             <span className="w-7 h-7 flex items-center justify-center bg-white text-black rounded-full text-sm">
               →
@@ -562,13 +604,13 @@ const BlogCard = ({ blog }) => {
 
       {/* Meta */}
       <div className="flex items-center gap-2 text-[12px] text-gray-300 mb-2">
-        <img src={blog.avatar} className="w-[20px] h-[20px] rounded-[4px]" />
+        <img src={"/p1.jpg"} className="w-[20px] h-[20px] rounded-[4px]" />
         <span className="font-normal text-[14px] text-[#FFFFFF]/70">
-          {blog.author}
+          {blog.author_name}
         </span>
         <span className="text-[#FFFFFF]/70 text-[14px] font-normal">•</span>
         <span className="text-[#FFFFFF]/70 text-[14px] font-normal">
-          {blog.date}
+          {blog.published_at}
         </span>
       </div>
 
@@ -579,7 +621,7 @@ const BlogCard = ({ blog }) => {
 
       {/* Description */}
       <p className="text-[14px] text-start text-[#FFFFFF]/70 font-normal leading-relaxed line-clamp-3">
-        {blog.desc}
+        {blog.summary}
       </p>
     </div>
   );
@@ -613,6 +655,26 @@ const galleryData = [
 ];
 
 function Gallery() {
+  const navigate = useNavigate();
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await http.get("/gallery");
+        const data = res.data;
+
+        setItems(data.results || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGallery();
+  }, []);
   return (
     <section className="bg-[#133C49] py-16 px-6 md:px-16 text-white">
       <div className="max-w-7xl mx-auto text-center">
@@ -620,20 +682,20 @@ function Gallery() {
         <h2 className="text-3xl md:text-4xl font-semibold mb-12">Gallery</h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
+        {/* <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
           {galleryData.map((item) => (
             <div
               key={item.id}
               className="bg-[#13404F] rounded-2xl overflow-hidden hover:-translate-y-1 transition"
             >
-              {/* Image */}
+              
               <img
                 src={item.image}
                 alt={item.title}
                 className="w-full h-[180px] object-cover"
               />
 
-              {/* Content */}
+              
               <div className="p-4">
                 <h3 className="text-[14px] text-[#FFFFFF] font-medium mb-2">
                   {item.title}
@@ -648,11 +710,52 @@ function Gallery() {
               </div>
             </div>
           ))}
-        </div>
+          
+        </div> */}
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6 text-left">
+            {items.map((item) => (
+              <div
+                key={item.id}
+                className="bg-[#13404F] rounded-2xl overflow-hidden hover:-translate-y-1 transition"
+              >
+                {/* Image (optional) */}
+                {item.image ? (
+                  <img
+                    src={item.image}
+                    alt={item.title}
+                    className="w-full h-[180px] object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-[180px] bg-gray-700 flex items-center justify-center text-sm text-gray-300">
+                    No Image
+                  </div>
+                )}
+
+                {/* Content */}
+                <div className="p-4">
+                  <h3 className="text-[14px] text-[#FFFFFF] font-medium mb-2">
+                    {item.title}
+                  </h3>
+
+                  <div className="flex items-center gap-2 text-[12px] text-[#FFFFFF]/70">
+                    <CalendarDays size={16} strokeWidth={2.5} />
+                    <span>{item.event_date}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
 
         {/* Button */}
         <div className="mt-12 flex justify-center">
-          <button className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full shadow-sm hover:bg-[#00c2ea] transition">
+          <button
+            onClick={() => navigate("/main/gallery")}
+            className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full shadow-sm hover:bg-[#00c2ea] transition"
+          >
             View More
             <span className="w-7 h-7 flex items-center justify-center bg-white text-black rounded-full text-sm">
               →

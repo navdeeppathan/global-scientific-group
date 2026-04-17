@@ -1,20 +1,36 @@
 "use client";
 
 import { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useNavigate, useParams } from "react-router-dom";
 export default function Header() {
   const [open, setOpen] = useState(false);
 
+  const { slug } = useParams();
+
+  // const navItems = [
+  //   { name: "Home", path: "/conference" },
+  //   { name: "Scientific Committee", path: "/conference/scientific-committee" },
+  //   { name: "Speakers", path: "/conference/speakers" },
+  //   { name: "Program", path: "/conference/program" },
+  //   { name: "Brochure", path: "/conference/brochure" },
+  //   { name: "Abstract", path: "/conference/abstract" },
+  //   { name: "Registration", path: "/conference/registration" },
+  //   { name: "Venue", path: "/conference/venue" },
+  //   { name: "Contact us", path: "/conference/contact" },
+  // ];
   const navItems = [
-    { name: "Home", path: "/conference" },
-    { name: "Scientific Committee", path: "/conference/scientific-committee" },
-    { name: "Speakers", path: "/conference/speakers" },
-    { name: "Program", path: "/conference/program" },
-    { name: "Brochure", path: "/conference/brochure" },
-    { name: "Abstract", path: "/conference/abstract" },
-    { name: "Registration", path: "/conference/registration" },
-    { name: "Venue", path: "/conference/venue" },
-    { name: "Contact us", path: "/conference/contact" },
+    { name: "Home", path: `/conference/${slug}` },
+    {
+      name: "Scientific Committee",
+      path: `/conference/${slug}/scientific-committee`,
+    },
+    { name: "Speakers", path: `/conference/${slug}/speakers` },
+    { name: "Program", path: `/conference/${slug}/program` },
+    { name: "Brochure", path: `/conference/${slug}/brochure` },
+    { name: "Abstract", path: `/conference/${slug}/abstract` },
+    { name: "Registration", path: `/conference/${slug}/registration` },
+    { name: "Venue", path: `/conference/${slug}/venue` },
+    { name: "Contact us", path: `/conference/${slug}/contact` },
   ];
 
   const navigate = useNavigate();

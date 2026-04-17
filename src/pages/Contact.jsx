@@ -1,5 +1,62 @@
 import { Phone, Mail, MessageCircle } from "lucide-react";
+import http from "../service/http";
+import { useEffect, useState } from "react";
 const Contact = () => {
+  const [loading, setLoading] = useState(true);
+  const [contact, setContact] = useState(null);
+  const [form, setForm] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    website: "",
+    message: "",
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async () => {
+    try {
+      if (!form.first_name || !form.email || !form.message) {
+        alert("Please fill required fields");
+        return;
+      }
+      await http.post("/core/contact", form);
+      alert("Message sent successfully");
+
+      // reset form
+      setForm({
+        first_name: "",
+        last_name: "",
+        email: "",
+        website: "",
+        message: "",
+      });
+    } catch (err) {
+      console.error(err);
+      alert("Something went wrong");
+    }
+  };
+
+  useEffect(() => {
+    const fetchCoreContact = async () => {
+      try {
+        const res = await http.get("/core/contact");
+
+        setContact(res.data.contact_info); // ✅ store full API response
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCoreContact();
+  }, []);
   return (
     <div className="bg-[#E7F9FF]">
       <ContactHero />
@@ -22,21 +79,33 @@ const Contact = () => {
             {/* FORM GRID */}
             <div className="grid md:grid-cols-2 gap-4 mb-4">
               <input
+                name="first_name"
+                value={form.first_name}
+                onChange={handleChange}
                 placeholder="First Name *"
                 className="w-full h-[48px] px-4 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad]"
               />
 
               <input
+                name="last_name"
+                value={form.last_name}
+                onChange={handleChange}
                 placeholder="Last Name *"
                 className="w-full h-[48px] px-4 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad]"
               />
 
               <input
+                name="email"
+                value={form.first_name}
+                onChange={handleChange}
                 placeholder="Email *"
                 className="w-full h-[48px] px-4 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad]"
               />
 
               <input
+                name="website"
+                value={form.website}
+                onChange={handleChange}
                 placeholder="Website"
                 className="w-full h-[48px] px-4 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad]"
               />
@@ -44,12 +113,18 @@ const Contact = () => {
 
             {/* TEXTAREA */}
             <textarea
+              name="message"
+              value={form.message}
+              onChange={handleChange}
               placeholder="Message"
               className="w-full h-[140px] px-4 py-3 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad] mb-5 resize-none"
             />
 
             {/* BUTTON */}
-            <button className="w-full h-[48px] bg-[#00849F] hover:bg-[#0c6b79] text-white text-[14px] font-medium rounded-[12px] transition">
+            <button
+              onClick={handleSubmit}
+              className="w-full h-[48px] bg-[#00849F] hover:bg-[#0c6b79] text-white text-[14px] font-medium rounded-[12px] transition"
+            >
               Submit
             </button>
           </div>
@@ -72,7 +147,7 @@ const Contact = () => {
                 <div className="space-y-1">
                   <p className="text-[13px] text-[#FFFFFF]">Tollfree Number:</p>
                   <p className="text-[13px] text-[#FFFFFF] font-medium">
-                    1800 1234 5678
+                    {contact?.tollfree_number}
                   </p>
                 </div>
               </div>
@@ -85,7 +160,7 @@ const Contact = () => {
                 <div className="space-y-1">
                   <p className="text-[13px] text-[#FFFFFF]">SMS/ WhatsApp</p>
                   <p className="text-[13px] text-[#FFFFFF] font-medium">
-                    +91 98765 43210
+                    {contact?.whatsapp_number}
                   </p>
                 </div>
               </div>
@@ -97,7 +172,7 @@ const Contact = () => {
                 <div className="space-y-1">
                   <p className="text-[13px] text-[#FFFFFF]">Email</p>
                   <p className="text-[13px] text-[#FFFFFF] font-medium">
-                    support@website.com
+                    {contact?.support_email}
                   </p>
                 </div>
               </div>
@@ -112,7 +187,7 @@ const Contact = () => {
                 Connect with us:
               </p>
 
-              <div className="flex gap-2">
+              {/* <div className="flex gap-2">
                 <img
                   src="/instagram.png"
                   alt=""
@@ -128,6 +203,43 @@ const Contact = () => {
                   alt=""
                   className="w-[42px] h-[42px] object-contain"
                 />
+              </div> */}
+              <div className="flex gap-2">
+                <a
+                  href={contact?.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/instagram.png"
+                    alt=""
+                    className="w-[42px] h-[42px] object-contain"
+                  />
+                </a>
+
+                <a
+                  href={contact?.linkedin}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/linkedin.png"
+                    alt=""
+                    className="w-[42px] h-[42px] object-contain"
+                  />
+                </a>
+
+                <a
+                  href={contact?.twitter}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <img
+                    src="/twitter.png"
+                    alt=""
+                    className="w-[42px] h-[42px] object-contain"
+                  />
+                </a>
               </div>
             </div>
           </div>

@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import http from "../service/http";
 
 const RegisterNow = () => {
   return (
@@ -98,6 +99,8 @@ function RegistrationForm() {
     { name: "Student (In-Person)", prices: ["$299", "$399", "$499"] },
     { name: "Student (Virtual)", prices: ["$149", "$199", "$249"] },
   ];
+
+  const { slug } = useParams();
 
   return (
     <div className="w-full bg-[#E7F9FF] py-16 flex justify-center">

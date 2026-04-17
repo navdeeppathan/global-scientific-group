@@ -1,4 +1,7 @@
-export default function Footer() {
+export default function Footer({ data }) {
+  if (!data || !data.footer) return null;
+
+  const { phone, email, website } = data.footer;
   return (
     <footer className="bg-[#154351] text-white pt-14 pb-6 px-6 md:px-16">
       <div className="max-w-7xl mx-auto">
@@ -60,7 +63,7 @@ export default function Footer() {
             <ul className="space-y-4 text-[18px] font-medium text-[#FFFFFF]">
               <li className="flex items-center gap-3 hover:text-[#01D4FF]">
                 <img src="/f1.png" alt="" className="w-[20px] h-[20px]" />
-                +1 123 456 7890
+                {phone}
               </li>
 
               <li className="flex items-center gap-3 hover:text-[#01D4FF]">
@@ -70,12 +73,12 @@ export default function Footer() {
 
               <li className="flex items-center gap-3 hover:text-[#01D4FF]">
                 <img src="/f4.png" alt="" className="w-[20px] h-[20px]" />
-                eventifyevent@gmail.com
+                {email}
               </li>
 
               <li className="flex items-center gap-3 hover:text-[#01D4FF]">
                 <img src="/f2.png" alt="" className="w-[20px] h-[20px]" />
-                eventifyevent.com
+                {website}
               </li>
             </ul>
           </div>
