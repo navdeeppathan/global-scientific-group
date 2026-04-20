@@ -8,7 +8,7 @@ const RegisterNow = () => {
       <RegisterHero />
       <RegistrationForm />
 
-      <RegistrationSummary />
+      {/* <RegistrationSummary /> */}
     </div>
   );
 };
@@ -102,6 +102,79 @@ function RegistrationForm() {
 
   const { slug } = useParams();
 
+  const [form, setForm] = useState({
+    title: "",
+    name: "",
+    phone: "",
+    whatsapp: "",
+    email: "",
+    altEmail: "",
+    institution: "",
+    country: "",
+    registration_type: "",
+    accommodation: "",
+    nights: "",
+    accompanying_count: "",
+  });
+
+  const handleChange = (field, value) => {
+    setForm((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+  };
+
+  const institutions = [
+    "Harvard University",
+    "Stanford University",
+    "IIT Delhi",
+    "IIT Bombay",
+    "Delhi University",
+  ];
+
+  const countries = [
+    "India",
+    "United States",
+    "United Kingdom",
+    "Canada",
+    "Australia",
+  ];
+
+  const registrationTypes = ["Student", "Delegate", "Speaker"];
+  const accommodationOptions = ["Yes", "No"];
+  const nightsOptions = ["1", "2", "3", "4", "5"];
+
+  const handleSubmit = async () => {
+    try {
+      const payload = {
+        title: form.title,
+        full_name: form.name,
+        phone: form.phone,
+        whatsapp: form.whatsapp,
+        email: form.email,
+        alternate_email: form.altEmail,
+        institution: form.institution,
+        country: form.country,
+
+        registration_type: form.registration_type,
+        accommodation: form.accommodation,
+        nights: form.nights,
+        accompanying_count: form.accompanying_count,
+      };
+
+      console.log("Sending:", payload);
+
+      const res = await http.post(`/registrations/${slug}/register`, payload);
+
+      console.log("Response:", res.data);
+
+      // ✅ Navigate after success
+      // navigate("/conference/register-success");
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <div className="w-full bg-[#E7F9FF] py-16 flex justify-center">
       <div className="w-[90%] space-y-6">
@@ -112,22 +185,97 @@ function RegistrationForm() {
           </h2>
 
           <div className="grid md:grid-cols-2 gap-4">
-            <Input label="Title" star />
-            <Input label="Name" placeholder="Enter Name" star />
+            <Input
+              label="Title"
+              star
+              value={form.title}
+              onChange={(v) => handleChange("title", v)}
+            />
+            <Input
+              label="Name"
+              star
+              value={form.name}
+              onChange={(v) => handleChange("name", v)}
+            />
 
-            <Input label="Phone" star />
-            <Input label="WhatsApp Number" />
+            <Input
+              label="Phone"
+              star
+              value={form.phone}
+              onChange={(v) => handleChange("phone", v)}
+            />
+            <Input
+              label="WhatsApp Number"
+              value={form.whatsapp}
+              onChange={(v) => handleChange("whatsapp", v)}
+            />
 
-            <Input label="Email" placeholder="Enter Email" star />
-            <Input label="Alternative Email" />
+            <Input
+              label="Email"
+              star
+              value={form.email}
+              onChange={(v) => handleChange("email", v)}
+            />
+            <Input
+              label="Alternative Email"
+              value={form.altEmail}
+              onChange={(v) => handleChange("altEmail", v)}
+            />
 
-            <Input label="Institution" placeholder="Enter Institution" star />
-            <Select label="Select Country/Region" />
+            {/* Institution Select */}
+            <Select
+              label="Institution"
+              options={institutions}
+              value={form.institution}
+              onChange={(v) => handleChange("institution", v)}
+            />
+
+            {/* Country Select */}
+            <Select
+              label="Select Country/Region"
+              options={countries}
+              value={form.country}
+              onChange={(v) => handleChange("country", v)}
+            />
+
+            <Select
+              label="Registration Type"
+              options={registrationTypes}
+              value={form.registration_type}
+              onChange={(v) => handleChange("registration_type", v)}
+            />
+
+            <Select
+              label="Accommodation"
+              options={accommodationOptions}
+              value={form.accommodation}
+              onChange={(v) => handleChange("accommodation", v)}
+            />
+
+            <Select
+              label="Number of Nights"
+              options={nightsOptions}
+              value={form.nights}
+              onChange={(v) => handleChange("nights", v)}
+            />
+
+            <Input
+              label="Accompanying Count"
+              value={form.accompanying_count}
+              onChange={(v) => handleChange("accompanying_count", v)}
+            />
+          </div>
+          <div className="text-right">
+            <button
+              onClick={handleSubmit}
+              className="mt-5 bg-[#01D4FF] text-[#072A41] py-[12px] px-[16px] rounded-[12px] text-[14px] font-semibold"
+            >
+              Submit
+            </button>
           </div>
         </div>
 
-        {/* PARTICIPATION */}
-        <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[20px] p-6">
+        {/* <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[20px] p-6">
           <div className="flex items-center justify-between">
             <h2 className="text-[#133C49] text-[18px] md:text-[28px] font-semibold mb-4">
               Types of Participation
@@ -137,7 +285,7 @@ function RegistrationForm() {
             </span>
           </div>
 
-          {/* Header */}
+        
           <div className="grid grid-cols-4 text-[10px] text-[#4F5C60] font-semibold mb-3">
             <span className="text-[#133C49] md:text-[18px]">Category</span>
             <span className="text-[#00849F] md:text-[18px] text-center">
@@ -154,7 +302,7 @@ function RegistrationForm() {
             </span>
           </div>
 
-          {/* Rows */}
+         
           <div className="space-y-2">
             {categories.map((item, index) => (
               <div
@@ -176,7 +324,7 @@ function RegistrationForm() {
                     key={i}
                     className="flex justify-center text-[10px] md:text-[18px]"
                   >
-                    {/* Highlight only FIRST price when selected */}
+                    
                     {selected === index && i === 0 ? (
                       <span className="bg-[#00849F] text-[#E7F9FF] p-[12px] rounded-[12px] font-semibold">
                         {p}
@@ -197,25 +345,24 @@ function RegistrationForm() {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
-        {/* ACCOMPANYING */}
-        <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[24px] p-[24px]">
+        {/* <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[24px] p-[24px]">
           <h4 className="text-[#133C49] text-[14px] font-medium mb-4">
             No. of Accompanying Persons ($200 each)
           </h4>
           <select className="w-full bg-white border border-[#C6E4EF] bg-[#E7F9FF] rounded-[12px] p-[16px] text-sm">
             <option></option>
           </select>
-        </div>
+        </div> */}
 
         {/* ACCOMMODATION */}
-        <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[24px] p-[24px]">
+        {/* <div className="bg-[#D5F4FF] border border-[#C6E4EF] rounded-[24px] p-[24px]">
           <h2 className="text-[#133C49] text-[18px] md:text-[28px] font-semibold mb-4">
             Accommodation (Per Night)
           </h2>
 
-          {/* Room Types */}
+          
           <div className="flex gap-3 mb-4 flex-wrap">
             {[
               { key: "single", label: "Single Occupancy", price: "$220" },
@@ -237,26 +384,41 @@ function RegistrationForm() {
             ))}
           </div>
 
-          {/* Dates */}
+          
           <div className="grid md:grid-cols-3 gap-4">
             <Select label="Check-in" />
             <Select label="Check-Out" />
             <Input label="No of Nights" />
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
 }
 
 /* INPUT */
-function Input({ label, star, placeholder }) {
+// function Input({ label, star, placeholder }) {
+//   return (
+//     <div>
+//       <label className="text-[14px] text-[#133C49] font-medium">
+//         {label} {star && <span className="text-[#FF3939]">*</span>}
+//       </label>
+//       <input
+//         placeholder={placeholder}
+//         className="w-full mt-1 bg-[#E7F9FF] border border-[#C6E4EF] rounded-[12px] p-[16px] text-[14px] focus:outline-none focus:border-[#01D4FF]"
+//       />
+//     </div>
+//   );
+// }
+function Input({ label, star, placeholder, value, onChange }) {
   return (
     <div>
       <label className="text-[14px] text-[#133C49] font-medium">
         {label} {star && <span className="text-[#FF3939]">*</span>}
       </label>
       <input
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         className="w-full mt-1 bg-[#E7F9FF] border border-[#C6E4EF] rounded-[12px] p-[16px] text-[14px] focus:outline-none focus:border-[#01D4FF]"
       />
@@ -265,14 +427,36 @@ function Input({ label, star, placeholder }) {
 }
 
 /* SELECT */
-function Select({ label }) {
+// function Select({ label }) {
+//   return (
+//     <div>
+//       <label className="text-[14px] text-[#133C49] font-medium">
+//         {label} <span className="text-[#FF3939]">*</span>
+//       </label>
+//       <select className="w-full mt-1 bg-[#E7F9FF] border border-[#C6E4EF] rounded-[12px] p-[16px] text-[14px]">
+//         <option>Select</option>
+//       </select>
+//     </div>
+//   );
+// }
+function Select({ label, options = [], value, onChange }) {
   return (
     <div>
       <label className="text-[14px] text-[#133C49] font-medium">
         {label} <span className="text-[#FF3939]">*</span>
       </label>
-      <select className="w-full mt-1 bg-[#E7F9FF] border border-[#C6E4EF] rounded-[12px] p-[16px] text-[14px]">
-        <option>Select</option>
+
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        className="w-full mt-1 bg-[#E7F9FF] border border-[#C6E4EF] rounded-[12px] p-[16px] text-[14px]"
+      >
+        <option value="">Select</option>
+        {options.map((item, i) => (
+          <option key={i} value={item}>
+            {item}
+          </option>
+        ))}
       </select>
     </div>
   );

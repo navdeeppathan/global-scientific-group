@@ -95,7 +95,7 @@ const EventSchedule = ({ events }) => {
 
         {/* Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 text-left">
-          {events.map((event) => (
+          {events?.map((event) => (
             <div
               key={event.id}
               className="bg-[#D5F4FF] rounded-2xl p-4 flex flex-col sm:flex-row gap-4"

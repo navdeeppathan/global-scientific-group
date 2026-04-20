@@ -59,6 +59,7 @@ export default function Header() {
               <NavLink
                 key={index}
                 to={item.path}
+                end={item.path === `/conference/${slug}`} // only for Home
                 className={({ isActive }) =>
                   `px-[16px] py-[8px] rounded-[12px] transition ${
                     isActive
@@ -72,7 +73,7 @@ export default function Header() {
             ))}
 
             <button
-              onClick={() => navigate("/conference/registration-form")}
+              onClick={() => navigate(`/conference/${slug}/registration-form`)}
               className="hidden md:block bg-cyan-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-300 transition"
             >
               Register Now
@@ -98,7 +99,7 @@ export default function Header() {
             ))}
 
             <button
-              onClick={() => navigate("/conference/registration-form")}
+              onClick={() => navigate(`/conference/${slug}/registration-form`)}
               className="w-full bg-cyan-400 text-black py-2 rounded-full font-semibold"
             >
               Register Now

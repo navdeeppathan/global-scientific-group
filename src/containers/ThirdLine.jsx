@@ -17,17 +17,22 @@ import http from "../service/http";
 const ThirdLine = () => {
   const [journals, setJournals] = useState(null);
   const [journalsHome, setJournalsHome] = useState(null);
+  const [editorial, setEditorial] = useState(null);
 
   useEffect(() => {
     const fetchCommon = async () => {
       try {
         const resJournals = await http.get(`/journals/all/`);
         const resHomeJournals = await http.get(`/journals`);
+        const resEditorial = await http.get(`/journals/editorial-board/`);
+
         console.log(resJournals.data);
 
         setJournals(resJournals.data);
 
         setJournalsHome(resHomeJournals.data);
+
+        setEditorial(resEditorial.data);
       } catch (err) {
         console.error(err);
       }
@@ -49,10 +54,16 @@ const ThirdLine = () => {
         <Route path="/subjects" element={<Subject data={journals} />} />
         <Route path="/authors" element={<Authors />} />
         <Route path="/reviewers" element={<Reviews />} />
-        <Route path="/editorial" element={<Editorial />} />
+        <Route
+          path="/editorial"
+          element={<Editorial editorial={editorial} />}
+        />
         <Route path="/article-details" element={<ArticleDetailPage />} />
 
-        <Route path="/submit-manuscript" element={<SubmitManuscript />} />
+        <Route
+          path="/submit-manuscript"
+          element={<SubmitManuscript journals={journals?.results} />}
+        />
       </Routes>
       <Footer />
     </div>

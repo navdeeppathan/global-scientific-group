@@ -169,6 +169,7 @@ function BrowseSubjects({ subjects }) {
 }
 
 function FeaturedJournals({ featured_journals }) {
+  if (!featured_journals || featured_journals.length === 0) return null;
   const journals = [
     {
       title: "Journal of Advanced Computing Systems",
@@ -370,6 +371,7 @@ function FeaturedJournals({ featured_journals }) {
 }
 
 function WhyPublish({ why_choose }) {
+  if (!why_choose || why_choose.length === 0) return null;
   const bullets = [
     "No hidden fees or charges",
     "Permanent archiving and preservation",
@@ -502,6 +504,7 @@ function WhyPublish({ why_choose }) {
 }
 
 function PlatformStats({ statistics, cta }) {
+  if (!statistics || statistics.length === 0 || !cta) return null;
   const stats = [
     {
       value: "50+",

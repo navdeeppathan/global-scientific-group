@@ -112,7 +112,8 @@ export default function Header() {
             </div>
             <NavLink to="/journals" className={navClass}>
               <div className="flex items-center gap-1">
-                Journals <ChevronDown size={20} />
+                Journals
+                {/* <ChevronDown size={20} /> */}
               </div>
             </NavLink>
             <NavLink to="/main/blogs" className={navClass}>

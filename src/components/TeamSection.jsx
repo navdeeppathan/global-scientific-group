@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import http from "../service/http";
+
 const team = [
   {
     id: 1,
@@ -26,6 +29,23 @@ const team = [
 ];
 
 export default function TeamSection() {
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCore = async () => {
+      try {
+        const res = await http.get("/core/team");
+        setData(res.data.results || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCore();
+  }, []);
   return (
     <section className="bg-[#154351] py-16 px-6 md:px-16 text-white">
       <div className="max-w-7xl mx-auto text-center">
@@ -36,7 +56,7 @@ export default function TeamSection() {
 
         {/* Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {team.map((member) => (
+          {data?.map((member) => (
             <div
               key={member.id}
               className="bg-[#133C49]  rounded-t-full pt-6 pb-6 px-4 text-center"
@@ -44,7 +64,7 @@ export default function TeamSection() {
               {/* Arch Image Container */}
               <div className="w-full flex justify-center mb-4">
                 <img
-                  src={member.image}
+                  src={member.photo}
                   alt={member.name}
                   className="w-full h-full object-cover"
                 />
@@ -54,7 +74,7 @@ export default function TeamSection() {
               <h3 className="font-semibold text-[20px] mb-1">{member.name}</h3>
 
               {/* Role */}
-              <p className="text-[14px] text-[#FFFFFF]">{member.role}</p>
+              <p className="text-[14px] text-[#FFFFFF]">{member.designation}</p>
             </div>
           ))}
         </div>

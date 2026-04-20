@@ -1,9 +1,10 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { ChevronLeft, ChevronRight } from "lucide-react";
+import http from "../service/http";
 
 const testimonials = [
   {
@@ -42,6 +43,29 @@ export default function TestimonialsAbout() {
   const swiperRef = useRef(null);
   const [progress, setProgress] = useState(25);
 
+  const [data, setData] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchCore = async () => {
+      try {
+        const res = await http.get("/core");
+
+        setData(res.data?.testimonials || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchCore();
+  }, []);
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <section className="bg-[#E7F9FF] py-16 px-4 sm:px-6 md:px-16 text-white">
       <div className="max-w-7xl mx-auto text-center">
@@ -70,12 +94,13 @@ export default function TestimonialsAbout() {
             1024: { slidesPerView: 4 },
           }}
         >
-          {testimonials.map((item) => (
+          {data?.map((item) => (
             <SwiperSlide key={item.id}>
               <div className="bg-[#244F5C] rounded-2xl overflow-hidden">
                 {/* Image */}
                 <img
-                  src={item.image}
+                  src={item.photo}
+                  alt={item.name}
                   className="w-full h-[280px] sm:h-[300px] md:h-[320px] object-cover"
                 />
 
@@ -85,7 +110,7 @@ export default function TestimonialsAbout() {
                     {item.name}
                   </h3>
                   <p className="text-[13px] md:text-[14px] text-[#cfeaed]">
-                    {item.role}
+                    {item.designation}
                   </p>
                 </div>
               </div>
