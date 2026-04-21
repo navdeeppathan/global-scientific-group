@@ -1,5 +1,6 @@
 import { Clock, MapPin } from "lucide-react";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 const EventSchedule = ({ events }) => {
   // const events = [
@@ -80,6 +81,7 @@ const EventSchedule = ({ events }) => {
   //     ],
   //   },
   // ];
+  const navigate = useNavigate();
   return (
     <section className="bg-[#E7F9FF] py-16 px-4 sm:px-6 md:px-12 lg:px-16 text-[#133C49] ">
       <div className="max-w-7xl mx-auto text-center">
@@ -174,7 +176,10 @@ const EventSchedule = ({ events }) => {
                 </div>
 
                 {/* Button */}
-                <button className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] text-[12px] sm:text-[13px] font-semibold px-5 py-2.5 rounded-full hover:bg-[#00c2ea] transition">
+                <button
+                  onClick={() => navigate("/journals/submit-manuscript")}
+                  className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] text-[12px] sm:text-[13px] font-semibold px-5 py-2.5 rounded-full hover:bg-[#00c2ea] transition"
+                >
                   RESERVE MY SEAT
                   <span className="w-5 h-5 flex items-center justify-center bg-white text-black rounded-full text-xs">
                     →

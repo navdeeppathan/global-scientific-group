@@ -111,6 +111,7 @@ const Home = ({ data, events }) => {
   //     ],
   //   },
   // ];
+  const navigate = useNavigate();
   return (
     <div>
       {/* <HeroSection /> */}
@@ -325,7 +326,10 @@ const Home = ({ data, events }) => {
                   </div>
 
                   {/* Button */}
-                  <button className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] text-[12px] sm:text-[13px] font-semibold px-5 py-2.5 rounded-full hover:bg-[#00c2ea] transition">
+                  <button
+                    onClick={() => navigate("/journals/submit-manuscript")}
+                    className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] text-[12px] sm:text-[13px] font-semibold px-5 py-2.5 rounded-full hover:bg-[#00c2ea] transition"
+                  >
                     RESERVE MY SEAT
                     <span className="w-5 h-5 flex items-center justify-center bg-white text-black rounded-full text-xs">
                       →
@@ -393,6 +397,8 @@ function HeroSection() {
         : "text-gray-600 hover:text-[#0b3c44]"
     }`;
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full min-h-screen bg-[#0B2C36] text-white relative overflow-hidden">
       <div>
@@ -448,7 +454,10 @@ function HeroSection() {
           </div>
 
           {/* BUTTON */}
-          <button className="flex items-center gap-3 bg-[#38d9ff] text-[#00343a] px-6 py-3 rounded-full text-sm font-semibold shadow-md hover:bg-[#22c7ee] transition">
+          <button
+            onClick={() => navigate("/journals/submit-manuscript")}
+            className="flex items-center gap-3 bg-[#38d9ff] text-[#00343a] px-6 py-3 rounded-full text-sm font-semibold shadow-md hover:bg-[#22c7ee] transition"
+          >
             RESERVE MY SEAT
             <span className="w-6 h-6 flex items-center justify-center bg-white text-black rounded-full text-xs">
               →
