@@ -665,19 +665,19 @@ function ReviewSubmit({ onPrev, form }) {
       const formData = new FormData();
 
       // append all fields
-      // Object.keys(form).forEach((key) => {
-      //   if (key === "declarations") {
-      //     formData.append(key, JSON.stringify(form[key]));
-      //   } else {
-      //     formData.append(key, form[key]);
-      //   }
-      // });
-      formData.append("file", form.manuscript_file); // file
-      formData.append("title", form.title);
-      formData.append("author_name", form.author_name);
-      formData.append("email", form.email);
-      formData.append("message", form.abstract || ""); // using abstract as message
-      formData.append("journal_slug", form.journal);
+      Object.keys(form).forEach((key) => {
+        if (key === "declarations") {
+          formData.append(key, JSON.stringify(form[key]));
+        } else {
+          formData.append(key, form[key]);
+        }
+      });
+      // formData.append("file", form.manuscript_file); // file
+      // formData.append("title", form.title);
+      // formData.append("author_name", form.author_name);
+      // formData.append("email", form.email);
+      // formData.append("message", form.abstract || ""); // using abstract as message
+      // formData.append("journal_slug", form.journal);
 
       // 🔍 Debug (VERY IMPORTANT)
       for (let pair of formData.entries()) {
@@ -687,11 +687,11 @@ function ReviewSubmit({ onPrev, form }) {
       //console data
       console.log("Form Data:", form);
 
-      // const res = await http.post("/journals/submit-manuscript/", formData, {
-      //   headers: {
-      //     "Content-Type": "multipart/form-data",
-      //   },
-      // });
+      const res = await http.post("/journals/submit-manuscript/", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
 
       // console.log(res.data);
 
