@@ -672,7 +672,7 @@ function ReviewSubmit({ onPrev, form }) {
           formData.append(key, form[key]);
         }
       });
-      // formData.append("file", form.manuscript_file); // file
+      formData.append("file", form.manuscript_file); // file
       // formData.append("title", form.title);
       // formData.append("author_name", form.author_name);
       // formData.append("email", form.email);
