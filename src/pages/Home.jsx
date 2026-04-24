@@ -731,9 +731,9 @@ function Gallery() {
                 className="bg-[#13404F] rounded-2xl overflow-hidden hover:-translate-y-1 transition"
               >
                 {/* Image (optional) */}
-                {item.image ? (
+                {item.preview_image ? (
                   <img
-                    src={item.image}
+                    src={item.preview_image}
                     alt={item.title}
                     className="w-full h-[180px] object-cover"
                   />

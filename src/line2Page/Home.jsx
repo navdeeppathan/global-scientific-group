@@ -4,6 +4,7 @@ import { CalendarDays, MapPin } from "lucide-react";
 import { useEffect, useState } from "react";
 import { Link2, Search, Activity, Cpu, Award, Users } from "lucide-react";
 import TeamSection from "../line2Components/TeamSection";
+import http from "../service/http";
 const Home = ({ data }) => {
   return (
     <div className="bg-[#133C49]">
@@ -718,16 +719,38 @@ const galleryData = [
 // }
 
 function Gallery({ data }) {
-  if (!data || !data.gallery_events) return null;
+  // if (!data || !data.gallery_events) return null;
 
   // Step 1: map API → UI format
-  const galleryData = data.gallery_events.map((item, index) => ({
-    id: item.id,
-    title: item.title,
-    date: item.event_date,
-    // fallback image (since API doesn't provide)
-    image: `/gallery/${index + 1}.jpg`,
-  }));
+  // const galleryData = data.gallery_events.map((item, index) => ({
+  //   id: item.id,
+  //   title: item.title,
+  //   date: item.event_date,
+  //   // fallback image (since API doesn't provide)
+  //   image: `/gallery/${index + 1}.jpg`,
+  // }));
+
+  const [items, setItems] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGallery = async () => {
+      try {
+        const res = await http.get("/gallery");
+        const data = res.data;
+
+        console.log(data);
+
+        setItems(data.results || []);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGallery();
+  }, []);
 
   return (
     <section className="bg-[#133C49] py-16 px-6 md:px-16 text-white">
@@ -737,14 +760,14 @@ function Gallery({ data }) {
 
         {/* Cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
-          {galleryData.map((item) => (
+          {items?.map((item) => (
             <div
               key={item.id}
               className="bg-[#13404F] rounded-2xl overflow-hidden hover:-translate-y-1 transition"
             >
               {/* Image */}
               <img
-                src={item.image}
+                src={item?.preview_image || "/b12.png"}
                 alt={item.title}
                 className="w-full h-[180px] object-cover"
               />
@@ -755,7 +778,7 @@ function Gallery({ data }) {
 
                 <div className="flex items-center gap-2 text-[12px] text-white/70">
                   <CalendarDays size={16} strokeWidth={2.5} />
-                  <span>{new Date(item.date).toLocaleDateString()}</span>
+                  <span>{new Date(item.event_date).toLocaleDateString()}</span>
                 </div>
               </div>
             </div>

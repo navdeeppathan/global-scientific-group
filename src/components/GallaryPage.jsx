@@ -210,7 +210,7 @@ export default function GallaryPage() {
                 >
                   {/* IMAGE (fallback) */}
                   <img
-                    src={item.image || "/b12.png"}
+                    src={item.preview_image || "/b12.png"}
                     className="w-full h-[180px] object-cover rounded-t-[14px]"
                   />
 
