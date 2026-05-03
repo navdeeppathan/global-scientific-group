@@ -100,7 +100,13 @@ const EventSchedule = ({ events }) => {
           {events?.map((event) => (
             <div
               key={event.id}
-              className="bg-[#D5F4FF] rounded-2xl p-4 flex flex-col sm:flex-row gap-4"
+              className="bg-[#D5F4FF] rounded-2xl p-4 flex flex-col sm:flex-row gap-4
+              transition-all duration-300 ease-in-out 
+              hover:shadow-[0_10px_30px_rgba(0,132,159,0.2)] 
+              hover:-translate-y-1 hover:scale-[1.02] 
+              hover:border hover:border-[#00BCD4] 
+              hover:bg-[#CFF3FF] cursor-pointer
+              "
             >
               {/* Image */}
               <img

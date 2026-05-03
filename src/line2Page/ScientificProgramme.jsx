@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Clock, MapPin } from "lucide-react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const ScientificProgramme = ({ data }) => {
   return (
     <div className="bg-[#E7F9FF]">
@@ -45,6 +45,7 @@ function ScientificHero() {
 
 function ScheduleSection({ days = [], sessions = [] }) {
   const [active, setActive] = useState(0);
+  const { slug } = useParams();
 
   const tabs = [
     { day: "Day 1", date: "September 15, 2026" },
@@ -60,6 +61,8 @@ function ScheduleSection({ days = [], sessions = [] }) {
   const filteredSessions = sessions.filter(
     (s) => s.day === activeDayId && s.is_enabled,
   );
+
+  console.log("filterdata:-", filteredSessions);
 
   // ✅ Format time (06:00:00 → 06:00 AM)
   const formatTime = (time) => {
@@ -118,15 +121,61 @@ function ScheduleSection({ days = [], sessions = [] }) {
         {filteredSessions.length === 0 ? (
           <div className="text-center text-gray-500">No sessions available</div>
         ) : (
+          // filteredSessions.map((session) => (
+          //   <div
+          //     key={session.id}
+          //     onClick={() =>
+          //       navigate("/conference/program-details", {
+          //         state: { session },
+          //       })
+          //     }
+          //     className="bg-[#13404F] text-white rounded-[16px] p-[24px] flex flex-col md:flex-row items-center justify-between gap-4 mb-4 cursor-pointer"
+          //   >
+          //     {/* Left */}
+          //     <div className="flex flex-col md:flex-row items-start gap-6">
+          //       {/* Time */}
+          //       <div className="flex items-center gap-2 text-[#01D4FF] font-semibold text-[20px]">
+          //         <img src="/clock2.png" alt="" className="w-[20px]" />
+          //         {formatTime(session.start_time)}
+          //       </div>
+
+          //       {/* Content */}
+          //       <div>
+          //         <h3 className="text-[20px] font-semibold">{session.title}</h3>
+
+          //         {/* Tag */}
+          //         <span className="inline-block mt-2 text-[18px] bg-[#035060] text-[#01D4FF] px-[12px] py-[6px] rounded-[40px]">
+          //           Track {session.track}
+          //         </span>
+
+          //         {/* Description */}
+          //         <div className="text-[16px] max-w-5xl text-white/70 mt-2 ">
+          //           {session.description}
+          //         </div>
+          //       </div>
+          //     </div>
+
+          //     {/* Button */}
+          //     <button className="border border-[#01D4FF] text-[#00D1FF] text-[12px] px-[16px] py-[8px] rounded-[12px] hover:bg-[#00D1FF] hover:text-black transition">
+          //       View Details
+          //     </button>
+          //   </div>
+          // ))
           filteredSessions.map((session) => (
             <div
               key={session.id}
               onClick={() =>
-                navigate("/conference/program-details", {
+                navigate(`/conference/${slug}/program-details`, {
                   state: { session },
                 })
               }
-              className="bg-[#13404F] text-white rounded-[16px] p-[24px] flex flex-col md:flex-row items-center justify-between gap-4 mb-4 cursor-pointer"
+              className="bg-[#13404F] text-white rounded-[16px] p-[24px] 
+              flex flex-col md:flex-row items-center justify-between gap-4 mb-4 cursor-pointer
+              border border-transparent
+              transition-all duration-300
+              hover:-translate-y-1
+              hover:border-[#00D1FF]
+              hover:shadow-[0_0_20px_rgba(0,209,255,0.25)] hover:text-[#00D1FF]"
             >
               {/* Left */}
               <div className="flex flex-col md:flex-row items-start gap-6">
@@ -138,7 +187,9 @@ function ScheduleSection({ days = [], sessions = [] }) {
 
                 {/* Content */}
                 <div>
-                  <h3 className="text-[20px] font-semibold">{session.title}</h3>
+                  <h3 className="text-[20px] font-semibold ">
+                    {session.title}
+                  </h3>
 
                   {/* Tag */}
                   <span className="inline-block mt-2 text-[18px] bg-[#035060] text-[#01D4FF] px-[12px] py-[6px] rounded-[40px]">
@@ -146,14 +197,18 @@ function ScheduleSection({ days = [], sessions = [] }) {
                   </span>
 
                   {/* Description */}
-                  <div className="text-[16px] max-w-5xl text-white/70 mt-2 ">
+                  <div className="text-[16px] max-w-5xl text-white/70 mt-2">
                     {session.description}
                   </div>
                 </div>
               </div>
 
               {/* Button */}
-              <button className="border border-[#01D4FF] text-[#00D1FF] text-[12px] px-[16px] py-[8px] rounded-[12px] hover:bg-[#00D1FF] hover:text-black transition">
+              <button
+                className="border border-[#01D4FF] text-[#00D1FF] text-[12px] px-[16px] py-[8px] rounded-[12px] 
+                transition-all duration-300
+                hover:bg-[#00D1FF] hover:text-black"
+              >
                 View Details
               </button>
             </div>

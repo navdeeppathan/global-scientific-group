@@ -5,6 +5,11 @@ import { useEffect, useState } from "react";
 import { Link2, Search, Activity, Cpu, Award, Users } from "lucide-react";
 import TeamSection from "../line2Components/TeamSection";
 import http from "../service/http";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/autoplay";
+
+import { Autoplay } from "swiper/modules";
 const Home = ({ data }) => {
   return (
     <div className="bg-[#133C49]">
@@ -28,56 +33,119 @@ function ConferenceHero({ data }) {
   if (!data) return null;
   const { hero, conference } = data;
 
+  console.log("conference data:-", data);
+
   return (
-    <div className="relative w-full h-screen">
-      {/* Background Image */}
-      <img
-        src={conference?.banner_image || "/conference.png"}
-        alt="conference"
-        className="absolute inset-0 w-full h-full object-cover"
-      />
+    // <div className="relative w-full h-screen">
 
-      {/* Overlay */}
-      {/* <div className="absolute inset-0 bg-[#0b3c44]/80"></div> */}
+    //   <img
+    //     src={conference?.banner_image || "/conference.png"}
+    //     alt="conference"
+    //     className="absolute inset-0 w-full h-full object-cover"
+    //   />
 
-      {/* Hero Content */}
-      <div className="relative z-10 flex flex-col justify-center h-full px-8 md:px-20 max-w-5xl">
-        {/* Tag */}
+    //   {/* Hero Content */}
+    //   <div className="relative z-10 flex flex-col justify-center h-full px-8 md:px-20 max-w-5xl">
+    //     {/* Tag */}
+    //     <span className="bg-[#184655] text-[#01D4FF] px-[12px] py-[6px] rounded-[12px] w-fit text-[18px] mb-4">
+    //       {hero?.badge}
+    //     </span>
+
+    //     {/* Title */}
+    //     <h1 className="text-white text-4xl md:text-[54px] font-medium leading-tight">
+    //       {hero?.title}
+    //     </h1>
+
+    //     {/* Highlight */}
+    //     <div className="mt-3 mb-4">
+    //       <span className="border bg-[#FFFFFF26] border-[#01D4FF] text-[#01D4FF] px-6 py-2 rounded-lg text-3xl md:text-[54px] font-semibold inline-block">
+    //         {hero?.subtitle}
+    //       </span>
+    //     </div>
+
+    //     {/* Subtitle */}
+    //     <p className="text-[#FFFFFF] text-[18px] font-medium mb-2">
+    //       {hero?.tagline}
+    //     </p>
+
+    //     {/* Description */}
+    //     <p className="text-[#FFFFFF] text-sm md:text-[18px] font-normal mb-6 max-w-4xl">
+    //       {data?.about?.description}
+    //     </p>
+
+    //     {/* Buttons */}
+    //     <div className="flex gap-4">
+    //       {hero?.show_register && (
+    //         <button className="bg-[#01D4FF] text-[#072A41] text-[14px] px-[16px] py-[8px] rounded-[12px] font-semibold">
+    //           Register Now
+    //         </button>
+    //       )}
+    //       {hero?.show_abstract && (
+    //         <button className="border border-[#01D4FF] text-[14px] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] font-semibold">
+    //           Submit Abstract
+    //         </button>
+    //       )}
+    //     </div>
+    //   </div>
+    // </div>
+    <div className="relative w-full h-screen overflow-hidden">
+      {/* SWIPER */}
+      <Swiper
+        modules={[Autoplay]}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        loop={true}
+        className="w-full h-full"
+      >
+        {(conference?.banner_images?.length
+          ? conference.banner_images
+          : [conference?.banner_image]
+        ).map((img, index) => (
+          <SwiperSlide key={index} className="relative w-full h-full">
+            {/* IMAGE */}
+            <img
+              src={img || "/conference.png"}
+              alt="conference"
+              className="w-full h-full object-cover"
+            />
+
+            {/* OPTIONAL OVERLAY */}
+            <div className="absolute inset-0 bg-[#0b3c44]/30"></div>
+          </SwiperSlide>
+        ))}
+      </Swiper>
+
+      {/* HERO CONTENT */}
+      <div className="absolute inset-0 z-10 flex flex-col justify-center px-8 md:px-20 max-w-5xl">
         <span className="bg-[#184655] text-[#01D4FF] px-[12px] py-[6px] rounded-[12px] w-fit text-[18px] mb-4">
           {hero?.badge}
         </span>
 
-        {/* Title */}
         <h1 className="text-white text-4xl md:text-[54px] font-medium leading-tight">
           {hero?.title}
         </h1>
 
-        {/* Highlight */}
         <div className="mt-3 mb-4">
-          <span className="border border-[#01D4FF] text-[#01D4FF] px-6 py-2 rounded-lg text-3xl md:text-[54px] font-semibold inline-block">
+          <span className="border bg-[#FFFFFF26] border-[#01D4FF] text-[#01D4FF] px-6 py-2 rounded-lg text-3xl md:text-[54px] font-semibold inline-block">
             {hero?.subtitle}
           </span>
         </div>
 
-        {/* Subtitle */}
-        <p className="text-[#FFFFFF] text-[18px] font-medium mb-2">
+        <p className="text-white text-[18px] font-medium mb-2">
           {hero?.tagline}
         </p>
 
-        {/* Description */}
-        <p className="text-[#FFFFFF] text-sm md:text-[18px] font-normal mb-6 max-w-4xl">
+        <p className="text-white text-sm md:text-[18px] mb-6 max-w-4xl">
           {data?.about?.description}
         </p>
 
-        {/* Buttons */}
         <div className="flex gap-4">
           {hero?.show_register && (
-            <button className="bg-[#01D4FF] text-[#072A41] text-[14px] px-[16px] py-[8px] rounded-[12px] font-semibold">
+            <button className="bg-[#01D4FF] text-[#072A41] px-[16px] py-[8px] rounded-[12px] font-semibold">
               Register Now
             </button>
           )}
           {hero?.show_abstract && (
-            <button className="border border-[#01D4FF] text-[14px] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] font-semibold">
+            <button className="border border-[#01D4FF] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] font-semibold">
               Submit Abstract
             </button>
           )}
@@ -759,26 +827,67 @@ function Gallery({ data }) {
         <h2 className="text-3xl md:text-4xl font-semibold mb-12">Gallery</h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
+        {/* <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
           {items?.map((item) => (
             <div
               key={item.id}
               className="bg-[#13404F] rounded-2xl overflow-hidden hover:-translate-y-1 transition"
             >
-              {/* Image */}
+             
               <img
                 src={item?.preview_image || "/b12.png"}
                 alt={item.title}
                 className="w-full h-[180px] object-cover"
               />
 
-              {/* Content */}
+             
               <div className="p-4">
                 <h3 className="text-[14px] font-medium mb-2">{item.title}</h3>
 
                 <div className="flex items-center gap-2 text-[12px] text-white/70">
                   <CalendarDays size={16} strokeWidth={2.5} />
                   <span>{new Date(item.event_date).toLocaleDateString()}</span>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div> */}
+
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 text-left">
+          {items?.map((item) => (
+            <div
+              key={item.id}
+              className="bg-[#13404F] rounded-2xl overflow-hidden 
+                 group cursor-pointer"
+            >
+              {/* IMAGE WRAPPER */}
+              <div className="relative">
+                {/* Image */}
+                <img
+                  src={item?.preview_image || "/b12.png"}
+                  alt={item.title}
+                  className="w-full h-[180px] object-cover
+                     transition duration-300
+                     group-hover:blur-xs group-hover:scale-105"
+                />
+
+                {/* OVERLAY */}
+                <div
+                  className="absolute inset-0 flex items-center justify-center
+                        opacity-0 group-hover:opacity-100
+                        transition duration-300"
+                >
+                  {/* BUTTON */}
+                  <button
+                    className="bg-[#01D4FF] pl-5 pr-2 py-2 rounded-full
+                       flex items-center gap-3 text-[#00343a] text-[14px] font-semibold
+                       shadow-lg hover:scale-105 transition"
+                  >
+                    View gallery
+                    <span className="bg-white text-black  w-7 h-7 flex items-center justify-center rounded-full text-sm font-bold">
+                      →
+                    </span>
+                  </button>
                 </div>
               </div>
             </div>

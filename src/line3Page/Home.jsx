@@ -23,39 +23,27 @@ function JournalsHero({ hero }) {
 
   return (
     <div className="relative w-full h-screen">
-      {/* Background */}
       <img
         src="/thirdbanner.png"
         alt="bg"
         className="absolute inset-0 w-full h-full object-cover"
       />
 
-      {/* Content */}
       <div className="relative z-10 flex flex-col items-center justify-center text-center h-full px-4">
-        {/* Top Badge */}
         <div className="mb-6">
           <span className="bg-[#184655] text-[#01D4FF] text-[14px] md:text-[18px] px-[12px] py-[6px] rounded-[12px]">
             Peer-Reviewed Scientific Publishing
           </span>
         </div>
 
-        {/* Heading */}
         <h1 className="text-white text-[28px] md:text-[54px] leading-tight font-medium max-w-4xl">
-          {/* Advancing <span className="text-[#01D4FF]">Global Research</span>
-          <br />
-          Through Open Science */}
           {hero?.heading}
         </h1>
 
-        {/* Description */}
         <p className="text-white/80 text-[14px] md:text-[18px] mt-4 max-w-2xl">
-          {/* Discover peer-reviewed journals across diverse scientific disciplines.
-          Join a global community of researchers advancing knowledge through
-          rigorous, ethical, and accessible publishing. */}
           {hero?.subheading}
         </p>
 
-        {/* Search Bar */}
         <div className="mt-6 w-full max-w-2xl flex items-center bg-[#223E47] border border-[#235262] rounded-[8px] overflow-hidden">
           <img
             src="/search-normal.png"
@@ -75,12 +63,10 @@ function JournalsHero({ hero }) {
           </button>
         </div>
 
-        {/* Popular */}
         <p className="text-white/70 text-[13px] mt-4">
           Popular: Machine Learning • Biotechnology • Sustainability
         </p>
 
-        {/* Buttons */}
         <div className="flex gap-4 mt-6 flex-wrap justify-center">
           <button className="bg-[#01D4FF] text-[#0B2C36] px-6 py-2 rounded-full text-sm font-semibold">
             {hero?.explore_button_text}
@@ -94,6 +80,7 @@ function JournalsHero({ hero }) {
     </div>
   );
 }
+
 function BrowseSubjects({ subjects }) {
   if (!subjects || subjects.length === 0) return null;
   // const subjects = [
@@ -129,25 +116,79 @@ function BrowseSubjects({ subjects }) {
 
         {/* Cards */}
         <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-5 mt-10">
-          {subjects.map((item, index) => (
+          {/* {subjects.map((item, index) => (
             <div
               key={index}
               className="flex items-center gap-4 bg-[#13404F] border border-[#235262] rounded-[16px] p-[16px] hover:bg-[#114652] transition"
             >
-              {/* Icon */}
+              
               <div className="w-[69px] h-[69px]">
                 <img src="/lock.png" alt="" className="w-full h-full" />
               </div>
 
-              {/* Text */}
+             
               <div className="text-left flex flex-col gap-2">
                 <h3 className="text-white text-[15px] md:text-[24px] font-semibold">
-                  {/* {item.title} */}
+               
                   {item.name}
                 </h3>
                 <p className="text-white/70 text-[12px] md:text-[18px] ">
                   {item.journal_count} Journals
                 </p>
+              </div>
+            </div>
+          ))} */}
+          {subjects.map((item, index) => (
+            <div
+              key={index}
+              onClick={() => navigate("/journals/subjects")}
+              className="group flex items-end justify-between gap-4 
+            bg-[#13404F] border border-[#235262] rounded-[16px] p-[16px] 
+            transition-all duration-300 cursor-pointer
+
+            hover:bg-[#114652]
+            hover:border-[#01D4FF]
+            hover:shadow-[0_0_20px_rgba(1,212,255,0.25)]"
+            >
+              {/* Left Content */}
+              <div className="flex items-center gap-4">
+                {/* Icon */}
+                <div
+                  className="w-[69px] h-[69px] bg-[#0F3642] rounded-[14px] flex items-center justify-center 
+                  transition group-hover:bg-[#184655]"
+                >
+                  <img src="/lock.png" className="w-[32px] h-[32px]" />
+                </div>
+
+                {/* Text */}
+                <div className="text-left flex flex-col gap-1">
+                  <h3
+                    className="text-white text-[15px] md:text-[24px] font-semibold 
+                   group-hover:text-[#01D4FF] transition"
+                  >
+                    {item.name}
+                  </h3>
+
+                  <p className="text-white/70 text-[12px] md:text-[18px]">
+                    {item.journal_count} Journals
+                  </p>
+                </div>
+              </div>
+
+              {/* Arrow (hidden → show on hover) */}
+              <div
+                className="opacity-0 translate-x-[-10px] 
+                group-hover:opacity-100 group-hover:translate-x-0 
+                transition-all duration-300"
+              >
+                <svg
+                  className="w-6 h-6 text-[#01D4FF]"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
+                  <path d="M5 12h14M13 6l6 6-6 6" />
+                </svg>
               </div>
             </div>
           ))}
@@ -294,7 +335,7 @@ function FeaturedJournals({ featured_journals }) {
               </div>
             </div>
           ))} */}
-          {featured_journals?.map((item, index) => (
+          {/* {featured_journals?.map((item, index) => (
             <div
               key={index}
               className="relative bg-[#133C49] border border-[#235262] rounded-[16px] pt-[24px] pb-[16px] px-[16px] text-left overflow-hidden"
@@ -305,7 +346,7 @@ function FeaturedJournals({ featured_journals }) {
 
               <div className="flex items-center gap-2 mb-3">
                 <span className="text-[12px] bg-[#01D4FF]/10 border border-[#01D4FF] font-normal text-[#01D4FF] px-[12px] py-[8px] rounded-[30px]">
-                  {/* {item.category} */}
+                  
                   Computer Science
                 </span>
                 <span
@@ -314,7 +355,7 @@ function FeaturedJournals({ featured_journals }) {
                  px-[12px] py-[8px] rounded-[30px] "
                 >
                   <span className="w-[6px] h-[6px] bg-[#0BD400] rounded-full"></span>
-                  {/* Open Access */}
+                 
                   {item?.is_open_access ? "Open Access" : "Closed Access"}
                 </span>
               </div>
@@ -324,13 +365,12 @@ function FeaturedJournals({ featured_journals }) {
               </h3>
 
               <p className="text-white/70 text-[12px] md:text-[14px] mb-4">
-                {/* ISSN: 2XXX-XXXX (Online) */}
+                
                 ISSN: {item?.ISSN_print} ({item?.ISSN_online})
               </p>
 
               <p className="text-white/70 text-[12px] md:text-[14px] mb-4">
-                {/* Publishing clinical trials, medical innovations, and healthcare
-                advancement research. */}
+                
                 {item?.short_description}
               </p>
 
@@ -342,13 +382,98 @@ function FeaturedJournals({ featured_journals }) {
                     Impact Factor
                   </p>
                   <p className="text-[#01D4FF] font-semibold text-[14px] md:text-[24px]">
-                    {/* {item.impact} */}
+                    
                     {item?.impact_factor}
                   </p>
                 </div>
 
                 <button className="text-[12px] md:text-[14px] font-semibold text-[#E7F9FF] flex items-center gap-1 hover:text-[#01D4FF]">
                   View Journal <ArrowRight size={14} />
+                </button>
+              </div>
+            </div>
+          ))} */}
+          {featured_journals?.map((item, index) => (
+            <div
+              key={index}
+              className="group relative bg-[#133C49] border border-[#235262] rounded-[16px] 
+              pt-[24px] pb-[16px] px-[16px] text-left overflow-hidden
+              transition-all duration-300 cursor-pointer
+
+              hover:-translate-y-1
+              hover:border-[#01D4FF]
+              hover:shadow-[0_0_25px_rgba(1,212,255,0.25)]"
+            >
+              {/* Top Gradient Bar */}
+              <div
+                className="absolute top-0 left-0 w-full h-[6px] 
+                bg-gradient-to-r from-[#00F58B] to-[#01D4FF]
+                opacity-70 group-hover:opacity-100 transition"
+              />
+
+              {/* Badges */}
+              <div className="flex items-center gap-2 mb-3">
+                <span className="text-[12px] bg-[#01D4FF]/10 border border-[#01D4FF] text-[#01D4FF] px-[12px] py-[6px] rounded-full">
+                  Computer Science
+                </span>
+
+                <span
+                  className="inline-flex items-center gap-1 text-[12px] 
+                  bg-[#0BD400]/10 border border-[#0BD400] text-[#0BD400]
+                  px-[12px] py-[6px] rounded-full"
+                >
+                  <span className="w-[6px] h-[6px] bg-[#0BD400] rounded-full"></span>
+                  {item?.is_open_access ? "Open Access" : "Closed Access"}
+                </span>
+              </div>
+
+              {/* Title */}
+              <h3
+                className="text-white text-[14px] md:text-[20px] font-semibold mb-2 
+              group-hover:text-[#01D4FF] transition"
+              >
+                {item?.title}
+              </h3>
+
+              {/* ISSN */}
+              <p className="text-white/70 text-[12px] md:text-[14px] mb-3">
+                ISSN: {item?.ISSN_print} ({item?.ISSN_online})
+              </p>
+
+              {/* Description */}
+              <p
+                className="text-white/70 text-[12px] md:text-[14px] mb-4 
+              group-hover:text-white/90 transition"
+              >
+                {item?.short_description}
+              </p>
+
+              {/* Divider */}
+              <div className="border-t border-[#235262] my-3 group-hover:border-[#01D4FF]/40 transition" />
+
+              {/* Bottom */}
+              <div className="flex items-center justify-between">
+                {/* Impact */}
+                <div>
+                  <p className="text-white/70 text-[11px] md:text-[14px]">
+                    Impact Factor
+                  </p>
+                  <p className="text-[#01D4FF] font-semibold text-[14px] md:text-[24px]">
+                    {item?.impact_factor}
+                  </p>
+                </div>
+
+                {/* Button */}
+                <button
+                  className="flex items-center gap-1 text-[12px] md:text-[14px] font-semibold 
+                text-[#E7F9FF] transition-all duration-300
+                group-hover:text-[#01D4FF]"
+                >
+                  View Journal
+                  <ArrowRight
+                    size={16}
+                    className="transition-transform duration-300 hidden group-hover:block group-hover:translate-x-1"
+                  />
                 </button>
               </div>
             </div>
@@ -528,6 +653,8 @@ function PlatformStats({ statistics, cta }) {
     },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full bg-[#13404F]">
       {/* ================= STATS ================= */}
@@ -599,7 +726,10 @@ function PlatformStats({ statistics, cta }) {
 
           {/* Buttons */}
           <div className="flex justify-center gap-4 mt-6 flex-wrap">
-            <button className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2">
+            <button
+              onClick={() => navigate("/journals/submit-manuscript")}
+              className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2"
+            >
               {/* Submit Manuscript */}
               {cta?.button_one_text}
               <span className="bg-[#FFFFFF] text-[#0B2C36]  w-5 h-5 rounded-full flex items-center justify-center text-xs">
@@ -607,7 +737,10 @@ function PlatformStats({ statistics, cta }) {
               </span>
             </button>
 
-            <button className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2">
+            <button
+              onClick={() => navigate("/journals/authors")}
+              className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2"
+            >
               {/* Author Guidelines */}
               {cta?.button_two_text}
               <span className="bg-[#FFFFFF] text-[#0B2C36]  w-5 h-5 rounded-full flex items-center justify-center text-xs">

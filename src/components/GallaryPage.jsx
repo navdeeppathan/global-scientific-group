@@ -197,7 +197,7 @@ export default function GallaryPage() {
                 </div>
               </div>
             ))} */}
-            {loading ? (
+            {/* {loading ? (
               <div className="col-span-3 text-center py-10">Loading...</div>
             ) : (
               items.map((item) => (
@@ -208,7 +208,7 @@ export default function GallaryPage() {
                   }
                   className="bg-[#D5F4FF] rounded-[24px] overflow-hidden w-full max-w-sm"
                 >
-                  {/* IMAGE (fallback) */}
+                  
                   <img
                     src={item.preview_image || "/b12.png"}
                     className="w-full h-[180px] object-cover rounded-t-[14px]"
@@ -216,6 +216,61 @@ export default function GallaryPage() {
 
                   <div className="px-4 py-4">
                     <h3 className="text-[#133C49] text-[14px] font-medium mb-2">
+                      {item.title}
+                    </h3>
+
+                    <div className="flex items-center gap-2 text-[#6b8b93] text-[12px]">
+                      <CalendarDays size={12} />
+                      <span>{new Date(item.event_date).toDateString()}</span>
+                    </div>
+                  </div>
+                </div>
+              ))
+            )} */}
+            {loading ? (
+              <div className="col-span-3 text-center py-10">Loading...</div>
+            ) : (
+              items.map((item) => (
+                <div
+                  key={item.id}
+                  onClick={() =>
+                    navigate(`/main/gallery-details?id=${item.id}`)
+                  }
+                  className="bg-[#D5F4FF] text-[#133C49] hover:text-[#00C2E0] rounded-[24px] overflow-hidden w-full max-w-sm cursor-pointer group"
+                >
+                  {/* IMAGE WRAPPER */}
+                  <div className="relative">
+                    {/* Image */}
+                    <img
+                      src={item.preview_image || "/b12.png"}
+                      className="w-full h-[180px] object-cover rounded-t-[14px]"
+                    />
+
+                    {/* HOVER OVERLAY */}
+                    <div
+                      className="absolute inset-0 flex items-center justify-center
+                        bg-black/30 backdrop-blur-xs
+                        opacity-0 group-hover:opacity-100
+                        transition duration-300"
+                    >
+                      {/* BUTTON */}
+                      <button
+                        onClick={() => navigate("/main/gallery")}
+                        className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] 
+                        text-[13px] font-semibold px-5 py-2.5 rounded-full 
+                        shadow-lg hover:bg-[#00c2ea] transition"
+                      >
+                        View gallery
+                        <span className="w-5 h-5 flex items-center justify-center bg-white text-black rounded-full text-xs">
+                          →
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* CONTENT */}
+                  <div className="px-4 py-4">
+                    <h3 className=" text-[14px] font-semibold mb-2">
                       {item.title}
                     </h3>
 

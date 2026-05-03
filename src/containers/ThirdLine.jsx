@@ -50,7 +50,7 @@ const ThirdLine = () => {
           path="/all-journals"
           element={<Journals journals={journals} />}
         />
-        <Route path="/about-journals" element={<AboutJournals />} />
+        <Route path="/about-journals/:slug" element={<AboutJournals />} />
         <Route path="/subjects" element={<Subject data={journals} />} />
         <Route path="/authors" element={<Authors />} />
         <Route path="/reviewers" element={<Reviews />} />

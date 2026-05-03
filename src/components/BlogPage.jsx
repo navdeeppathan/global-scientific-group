@@ -259,7 +259,12 @@ export default function BlogPage() {
                 onClick={() =>
                   navigate(`/main/blogs-details?slug=${blog.slug}`)
                 }
-                className="bg-[#D5F4FF] rounded-[24px] p-[16px]"
+                className="bg-[#D5F4FF] rounded-[24px] p-[16px] cursor-pointer
+                border border-transparent
+                hover:border-[#2AA4BF]
+                hover:shadow-[0_0_0_2px_rgba(42,164,191,0.2)]
+                hover:-translate-y-2
+                transition-all duration-300"
               >
                 {/* Image */}
                 {/* <img

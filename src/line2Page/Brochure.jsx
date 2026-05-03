@@ -49,6 +49,7 @@ function DocumentsSection({ data }) {
   if (!data) return null;
   const { slug } = useParams();
   const [open, setOpen] = useState(false);
+  const [selectedDoc, setSelectedDoc] = useState(null);
   // const docs = [
   //   {
   //     title: "Conference Brochure 2026",
@@ -83,6 +84,7 @@ function DocumentsSection({ data }) {
   // ];
 
   const docs = data?.brochures?.filter((b) => b.is_enabled) || [];
+  console.log("docs:-", docs);
 
   const [form, setForm] = useState({
     title: "",
@@ -90,7 +92,7 @@ function DocumentsSection({ data }) {
     phone: "",
     email: "",
     country: "",
-    interest: "",
+    interested_in: "",
     message: "",
   });
 
@@ -119,13 +121,31 @@ function DocumentsSection({ data }) {
       // success
       alert("Brochure request submitted!");
 
+      if (selectedDoc?.file) {
+        try {
+          const res = await fetch(selectedDoc.file, { method: "HEAD" });
+
+          if (!res.ok) {
+            throw new Error("File not found");
+          }
+
+          // ✅ Open file (better than forcing download)
+          window.open(selectedDoc.file, "_blank");
+        } catch (err) {
+          console.error("File error:", err);
+          alert("File not available. Please try again later.");
+        }
+      } else {
+        alert("No file available for download");
+      }
+
       setForm({
         title: "",
         name: "",
         phone: "",
         email: "",
         country: "",
-        interest: "",
+        interested_in: "",
         message: "",
       });
 
@@ -144,40 +164,40 @@ function DocumentsSection({ data }) {
         <div className="w-[90%]">
           {/* Grid */}
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {docs.map((item, index) => (
+            {/* {docs.map((item, index) => (
               <div
                 key={index}
                 className="bg-[#D5F4FF] border border-[#1B5061] rounded-[12px] p-[16px] flex flex-col justify-between"
               >
-                {/* Top */}
+               
                 <div>
-                  {/* Icon */}
+                  
                   <img
                     src="/file.png"
                     alt=""
                     className="w-[48px] h-[48px] mb-4"
                   />
 
-                  {/* Title */}
+                 
                   <h3 className="text-[#133C49] text-[18px] md:text-[28px] font-semibold mb-2">
                     {item.title}
                   </h3>
 
-                  {/* Description */}
+                  
                   <p className="text-[#4F5C60] text-[13px] md:text-[18px] leading-relaxed">
                     {item.description}
                   </p>
                 </div>
 
-                {/* Bottom */}
+                
                 <div className="flex items-center justify-between mt-6">
-                  {/* PDF Size */}
+                  
                   <span className="text-[#4F5C60] text-[18px]">
-                    {/* PDF • {item.size} */}
+                  
                     PDF • {item.file_size} MB
                   </span>
 
-                  {/* Button */}
+                
                   <button
                     onClick={() => setOpen(true)}
                     className="flex items-center gap-2 border border-[#00849F] text-[#00849F] text-[14px] px-[16px] py-[8px] rounded-[12px] hover:bg-[#01D4FF] hover:text-[#133C49] transition"
@@ -187,6 +207,60 @@ function DocumentsSection({ data }) {
                       alt=""
                       className="w-[20px] h-[20px] object-contain"
                     />
+                    Download
+                  </button>
+                </div>
+              </div>
+            ))} */}
+            {docs.map((item, index) => (
+              <div
+                key={index}
+                className="group bg-[#D5F4FF] border border-[#1B5061] rounded-[16px] p-[20px] 
+                flex flex-col justify-between cursor-pointer
+                transition-all duration-300
+                hover:-translate-y-1
+                hover:border-[#01D4FF]
+                hover:shadow-[0_0_25px_rgba(1,212,255,0.25)]
+                hover:bg-[#CFF2FF] text-[#133C49] hover:text-[#01D4FF]"
+              >
+                {/* Top */}
+                <div>
+                  <div className="w-[56px] h-[56px] bg-[#154351] rounded-[12px] flex items-center justify-center mb-4">
+                    <img src="/file.png" className="w-[28px] h-[28px]" />
+                  </div>
+
+                  <h3 className="text-[18px] md:text-[28px] font-semibold mb-2">
+                    {item.title}
+                  </h3>
+
+                  <p className="text-[#4F5C60] text-[13px] md:text-[18px] leading-relaxed">
+                    {item.description}
+                  </p>
+                </div>
+
+                {/* Bottom */}
+                <div className="flex items-center justify-between mt-6">
+                  <span className="text-[#4F5C60] text-[16px]">
+                    PDF • {item.file_size} MB
+                  </span>
+
+                  {/* Button */}
+                  <button
+                    onClick={() => {
+                      setSelectedDoc(item); // 👈 store clicked item
+                      setOpen(true);
+                    }}
+                    className="flex items-center gap-2 
+                      border border-[#00849F] text-[#00849F] 
+                      text-[14px] px-[18px] py-[10px] rounded-[14px]
+                      transition-all duration-300
+
+                      /* 👇 THIS IS THE MAGIC */
+                      group-hover:bg-gradient-to-r group-hover:from-[#01D4FF] group-hover:to-[#00B8D9]
+                      group-hover:text-white group-hover:border-transparent
+                    "
+                  >
+                    <DownloadIcon className="w-5 h-5 transition group-hover:translate-y-[2px]" />
                     Download
                   </button>
                 </div>
@@ -250,8 +324,8 @@ function DocumentsSection({ data }) {
               <Input
                 label="Interested In"
                 placeholder="Enter Interested In"
-                name="interest"
-                value={form.interest}
+                name="interested_in"
+                value={form.interested_in}
                 onChange={handleChange}
               />
 
@@ -298,6 +372,24 @@ function DocumentsSection({ data }) {
   );
 }
 
+const DownloadIcon = ({ className = "w-5 h-5" }) => {
+  return (
+    <svg
+      className={className}
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M12 4v10" />
+      <path d="M8 10l4 4 4-4" />
+      <path d="M6 20h12" />
+    </svg>
+  );
+};
+
 function Input({ label, name, value, onChange, placeholder }) {
   return (
     <div>
@@ -326,11 +418,17 @@ function Select({ label, name, value, onChange }) {
         name={name}
         value={value}
         onChange={onChange}
-        className="w-full mt-1 bg-transparent border border-white/20 rounded-lg px-4 py-3 text-sm focus:outline-none focus:border-[#01D4FF]"
+        className="w-full mt-1 bg-transparent border border-white/20 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-[#01D4FF]"
       >
-        <option value="">Select</option>
-        <option value="India">India</option>
-        <option value="USA">USA</option>
+        <option value="" className="text-black">
+          Select
+        </option>
+        <option value="India" className="text-black">
+          India
+        </option>
+        <option value="USA" className="text-black">
+          USA
+        </option>
       </select>
     </div>
   );

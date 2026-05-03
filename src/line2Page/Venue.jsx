@@ -285,7 +285,12 @@ function TravelInfo({ data }) {
           {travel.map((item) => (
             <div
               key={item.id}
-              className="bg-[#D5F4FF] border border-[#1B5061] rounded-[12px] p-[16px]"
+              className="bg-[#D5F4FF] border border-[#1B5061] rounded-[12px] p-[16px] text-[#133C49] hover:text-[#01D4FF]
+               transition-all duration-300 cursor-pointer
+              hover:-translate-y-1
+              hover:border-[#00849F]
+              hover:shadow-[0_0_25px_rgba(1,212,255,0.25)]
+              "
             >
               {/* Icon */}
               <div className="w-[48px] h-[48px] mb-3">
@@ -297,7 +302,7 @@ function TravelInfo({ data }) {
               </div>
 
               {/* Title */}
-              <h3 className="text-[18px] md:text-[28px] font-semibold text-[#133C49] mb-2">
+              <h3 className="text-[18px] md:text-[28px] font-semibold  mb-2">
                 {item.title}
               </h3>
 

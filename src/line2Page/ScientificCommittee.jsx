@@ -115,6 +115,8 @@ function OrganizingCommittee({ data = [] }) {
   // ✅ filter only enabled members
   const members = data.filter((item) => item.is_enabled);
 
+  console.log("members:-", members);
+
   return (
     <div className="w-full py-16 bg-[#c7d6db] flex justify-center">
       <div className="w-[90%] max-w-6xl">
@@ -125,27 +127,80 @@ function OrganizingCommittee({ data = [] }) {
 
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6">
-          {members.map((item) => (
+          {/* {members.map((item) => (
             <div
               key={item.id}
-              className="bg-[#154351] rounded-[16px] p-6 text-center text-white shadow-md"
+              className="bg-[#154351] rounded-[16px] p-6 text-center text-white shadow-md cursor-pointer"
             >
-              {/* Image */}
               <div className="w-[244px] h-[244px] mx-auto rounded-full overflow-hidden mb-4">
                 <img
-                  src={item.photo || "/default-user.png"}
+                  src={"/t1.jpg"}
                   alt={item.name}
                   className="w-full h-full object-cover"
                 />
               </div>
 
-              {/* Name */}
               <h3 className="text-[20px] text-[#FFFFFF] font-semibold">
                 {item.name}
               </h3>
 
-              {/* Role */}
               <p className="text-[14px] text-[#FFFFFF] mt-1">{item.role}</p>
+
+              <p className="text-[14px] text-white/70 mt-1">
+                {item.organization}
+              </p>
+            </div>
+          ))} */}
+
+          {members.map((item) => (
+            <div
+              key={item.id}
+              className="bg-[#154351] rounded-[16px] p-6 text-center text-white shadow-md group cursor-pointer"
+            >
+              {/* Image Wrapper */}
+              <div className="relative w-[244px] h-[244px] mx-auto rounded-full overflow-hidden mb-4">
+                {/* Image */}
+                <img
+                  src={"/t1.jpg"}
+                  alt={item.name}
+                  className="w-full h-full object-cover"
+                />
+
+                {/* Curved Bottom Panel */}
+                <div
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[170px] h-[80px]
+                  rounded-t-full flex items-center justify-center gap-3
+                  translate-y-[55%] group-hover:translate-y-[0%]
+                  transition-all duration-500 ease-in-out
+                  backdrop-blur-xl
+                  bg-[radial-gradient(circle_at_center,rgba(255,255,255,0.35),rgba(21,67,81,0.9))]"
+                >
+                  {/* Instagram */}
+                  <div className="w-6 h-6 flex items-center justify-center rounded-full bg-gradient-to-tr from-yellow-400 via-pink-500 to-purple-600">
+                    <i className="fa-brands fa-instagram text-white text-lg"></i>
+                  </div>
+
+                  {/* X */}
+                  <div className="w-6 h-6 flex items-center justify-center rounded-full bg-black">
+                    <i className="fa-brands fa-x-twitter text-white text-lg"></i>
+                  </div>
+
+                  {/* LinkedIn */}
+                  <div className="w-6 h-6 flex items-center justify-center rounded-full bg-[#0A66C2]">
+                    <i className="fa-brands fa-linkedin-in text-white text-lg"></i>
+                  </div>
+                </div>
+              </div>
+
+              {/* Name */}
+              <h3 className="text-[20px] font-semibold group-hover:text-cyan-400 transition">
+                {item.name}
+              </h3>
+
+              {/* Role */}
+              <p className="text-[14px] mt-1 group-hover:text-cyan-300 transition">
+                {item.role}
+              </p>
 
               {/* Organization */}
               <p className="text-[14px] text-white/70 mt-1">

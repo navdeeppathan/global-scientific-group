@@ -45,7 +45,10 @@ export default function Header() {
         bg-[#09182E] shadow-lg "
         >
           {/* Logo */}
-          <div className="flex items-center gap-2">
+          <div
+            onClick={() => navigate("/")}
+            className="flex items-center gap-2"
+          >
             <img
               src="/logo.png"
               alt="logo"

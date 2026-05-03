@@ -257,20 +257,20 @@ function JournalsPage({ journals }) {
             ))}
           </div> */}
           <div className="grid md:grid-cols-2 gap-6">
-            {filteredList.map((item) => (
+            {/* {filteredList.map((item) => (
               <div
                 key={item.id}
                 className="bg-[#FFFFFF] rounded-[16px] p-[16px] shadow-sm"
               >
-                {/* Tags */}
+                
                 <div className="flex gap-2 mb-2 flex-wrap">
-                  {/* Subject */}
+                  
                   <span className="text-[12px] px-[12px] bg-[#E7F9FF] py-[8px] border border-[#00849F] text-[#00849F] rounded-[30px]">
                     {subjects.find((s) => s.id === item.subject)?.name ||
                       "General"}
                   </span>
 
-                  {/* Open Access */}
+                  
                   {item.is_open_access && (
                     <span className="inline-flex items-center gap-1 text-[12px] px-[12px] py-[8px] border border-[#0BD400] bg-[#0BD400]/10 text-[#0BD400] rounded-[30px]">
                       Open Access
@@ -278,23 +278,23 @@ function JournalsPage({ journals }) {
                   )}
                 </div>
 
-                {/* Title */}
+               
                 <h3 className="text-[15px] md:text-[18px] font-semibold text-[#133C49]">
                   {item.title}
                 </h3>
 
-                {/* Description */}
+                
                 <p className="text-[12px] md:text-[14px] font-medium text-[#4F5C60] mt-2">
                   {item.short_description}
                 </p>
 
-                {/* ISSN */}
+               
                 <p className="text-[11px] md:text-[14px] text-[#4F5C60] mt-3">
                   ISSN (Online): {item.ISSN_online} &nbsp; ISSN (Print):{" "}
                   {item.ISSN_print}
                 </p>
 
-                {/* Indexing */}
+                
                 <div className="flex gap-2 mt-3 text-[12px] flex-wrap">
                   {item.indexing_list?.map((tag, i) => (
                     <span
@@ -306,13 +306,103 @@ function JournalsPage({ journals }) {
                   ))}
                 </div>
 
-                {/* Link */}
+               
                 <button
                   onClick={() => navigate(`/journals/${item.slug}`)}
                   className="text-[#00849F] text-[12px] md:text-[14px] mt-3 font-semibold hover:underline"
                 >
                   View Journal
                 </button>
+              </div>
+            ))} */}
+            {filteredList.map((item) => (
+              <div
+                key={item.id}
+                onClick={() =>
+                  navigate(`/journals/about-journals/${item.slug}`)
+                }
+                className="group bg-[#FFFFFF] rounded-[16px] p-[18px] 
+                border border-transparent
+                shadow-sm cursor-pointer
+                transition-all duration-300
+
+                hover:border-[#00849F]
+                hover:shadow-[0_0_20px_rgba(1,212,255,0.25)]
+                hover:bg-[#F2FBFF]"
+              >
+                {/* Tags */}
+                <div className="flex gap-2 mb-3 flex-wrap">
+                  <span
+                    className="text-[12px] px-[12px] py-[6px] 
+                  bg-[#E7F9FF] border border-[#00849F] text-[#00849F] rounded-full"
+                  >
+                    {subjects.find((s) => s.id === item.subject)?.name ||
+                      "General"}
+                  </span>
+
+                  {item.is_open_access && (
+                    <span
+                      className="inline-flex items-center gap-1 text-[12px] px-[12px] py-[6px] 
+                      border border-[#0BD400] bg-[#0BD400]/10 text-[#0BD400] rounded-full"
+                    >
+                      Open Access
+                    </span>
+                  )}
+                </div>
+
+                {/* Title */}
+                <h3
+                  className="text-[16px] md:text-[20px] font-semibold text-[#133C49] 
+                  group-hover:text-[#00849F] transition"
+                >
+                  {item.title}
+                </h3>
+
+                {/* Description */}
+                <p
+                  className="text-[13px] md:text-[15px] text-[#4F5C60] mt-2 
+                group-hover:text-[#3a4a4f] transition"
+                >
+                  {item.short_description}
+                </p>
+
+                {/* ISSN */}
+                <p className="text-[12px] md:text-[14px] text-[#4F5C60] mt-3">
+                  ISSN (Online): {item.ISSN_online} &nbsp; ISSN (Print):{" "}
+                  {item.ISSN_print}
+                </p>
+
+                {/* Indexing */}
+                <div className="flex gap-2 mt-3 flex-wrap">
+                  {item.indexing_list?.map((tag, i) => (
+                    <span
+                      key={i}
+                      className="bg-[#E7F9FF] px-[10px] py-[5px] rounded-[6px] text-[#133C49] text-[12px]
+                    group-hover:bg-[#D5F4FF] transition"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                {/* Link */}
+                <div className="flex items-center gap-2 mt-4">
+                  <button
+                    onClick={() => navigate(`/journals/${item.slug}`)}
+                    className="text-[#00849F] group-hover:text-[#01D4FF] text-[13px] md:text-[15px] font-semibold 
+                   flex items-center gap-2 transition"
+                  >
+                    View Journal
+                    {/* Arrow */}
+                    <span
+                      className="opacity-0 translate-x-[-6px] 
+                      group-hover:opacity-100 group-hover:translate-x-0 
+                      transition-all duration-300"
+                    >
+                      →
+                    </span>
+                  </button>
+                </div>
               </div>
             ))}
           </div>

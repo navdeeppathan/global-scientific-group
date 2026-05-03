@@ -56,12 +56,11 @@ export default function TeamSection() {
 
         {/* Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          {data?.map((member) => (
+          {/* {data?.map((member) => (
             <div
               key={member.id}
               className="bg-[#133C49]  rounded-t-full pt-6 pb-6 px-4 text-center"
             >
-              {/* Arch Image Container */}
               <div className="w-full flex justify-center mb-4">
                 <img
                   src={member.photo}
@@ -70,11 +69,62 @@ export default function TeamSection() {
                 />
               </div>
 
-              {/* Name */}
               <h3 className="font-semibold text-[20px] mb-1">{member.name}</h3>
 
-              {/* Role */}
               <p className="text-[14px] text-[#FFFFFF]">{member.designation}</p>
+            </div>
+          ))} */}
+          {data?.map((member) => (
+            <div
+              key={member.id}
+              className="bg-[#133C49] rounded-t-full pt-6 pb-6 px-4 text-center 
+               transition-all duration-300 group"
+            >
+              {/* Image Wrapper */}
+              <div className="relative w-full flex justify-center mb-4">
+                {/* Outer Ring Effect */}
+
+                {/* Image */}
+                <img
+                  src={member.photo}
+                  alt={member.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* Name */}
+              <h3
+                className="font-semibold text-[20px] mb-1 
+                   text-white group-hover:text-cyan-400 
+                   transition duration-300"
+              >
+                {member.name}
+              </h3>
+
+              {/* Role */}
+              <p className="text-[14px] text-[#FFFFFF] mb-3">
+                {member.designation}
+              </p>
+
+              {/* Social Icons (Hidden by default) */}
+              <div
+                className="flex justify-center gap-3 
+                    opacity-0 translate-y-3 
+                    group-hover:opacity-100 group-hover:translate-y-0 
+                    transition duration-300"
+              >
+                <a className="bg-gradient-to-r from-yellow-400 via-pink-500 to-purple-500 px-3 py-2 rounded-full text-white">
+                  <i className="fab fa-instagram"></i>
+                </a>
+
+                <a className="bg-black px-3 py-2 rounded-full text-white">
+                  <i className="fab fa-x-twitter"></i>
+                </a>
+
+                <a className="bg-blue-500 px-3 py-2 rounded-full text-white">
+                  <i className="fab fa-linkedin-in"></i>
+                </a>
+              </div>
             </div>
           ))}
         </div>
