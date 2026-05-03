@@ -87,7 +87,7 @@ const SecondLine = () => {
       <Routes>
         <Route path="/" element={<Home data={conferenceData} team={team} />} />
         <Route
-          path="/scientific-committee"
+          path="/committee"
           element={<ScientificCommittee data={committee} />}
         />
         <Route path="/speakers" element={<OurSpeaker data={speaker} />} />
@@ -105,7 +105,7 @@ const SecondLine = () => {
         <Route path="/submitabstract" element={<SubmitAbstract />} />
         <Route path="/success" element={<SubmissionSuccess />} />
 
-        <Route path="/registration" element={<RegisterNow />} />
+        <Route path="/register" element={<RegisterNow />} />
         <Route path="/register-success" element={<RegisterSuccess />} />
 
         <Route path="/venue" element={<Venue data={venueData} />} />

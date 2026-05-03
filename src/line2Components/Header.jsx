@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { NavLink, useNavigate, useParams } from "react-router-dom";
-export default function Header() {
+export default function Header({ data }) {
   const [open, setOpen] = useState(false);
 
   const { slug } = useParams();
@@ -18,20 +18,36 @@ export default function Header() {
   //   { name: "Venue", path: "/conference/venue" },
   //   { name: "Contact us", path: "/conference/contact" },
   // ];
-  const navItems = [
-    { name: "Home", path: `/conference/${slug}` },
-    {
-      name: "Scientific Committee",
-      path: `/conference/${slug}/scientific-committee`,
-    },
-    { name: "Speakers", path: `/conference/${slug}/speakers` },
-    { name: "Program", path: `/conference/${slug}/program` },
-    { name: "Brochure", path: `/conference/${slug}/brochure` },
-    { name: "Abstract", path: `/conference/${slug}/abstract` },
-    { name: "Registration", path: `/conference/${slug}/registration` },
-    { name: "Venue", path: `/conference/${slug}/venue` },
-    { name: "Contact us", path: `/conference/${slug}/contact` },
-  ];
+  // const navItems = [
+  //   { name: "Home", path: `/conference/${slug}` },
+  //   {
+  //     name: "Scientific Committee",
+  //     path: `/conference/${slug}/scientific-committee`,
+  //   },
+  //   { name: "Speakers", path: `/conference/${slug}/speakers` },
+  //   { name: "Program", path: `/conference/${slug}/program` },
+  //   { name: "Brochure", path: `/conference/${slug}/brochure` },
+  //   { name: "Abstract", path: `/conference/${slug}/abstract` },
+  //   { name: "Registration", path: `/conference/${slug}/registration` },
+  //   { name: "Venue", path: `/conference/${slug}/venue` },
+  //   { name: "Contact us", path: `/conference/${slug}/contact` },
+  // ];
+
+  const registerItem = data?.menus?.find(
+    (item) =>
+      item.is_enabled &&
+      (item.label === "Register Now" ||
+        item.url_name === "registrations:register"),
+  );
+
+  const navItems =
+    data?.menus
+      ?.filter((item) => item.is_enabled && item.label !== "Register Now")
+      ?.sort((a, b) => a.order - b.order)
+      ?.map((item) => ({
+        name: item.label,
+        path: item.resolved_url || "#",
+      })) || [];
 
   const navigate = useNavigate();
 
@@ -75,12 +91,14 @@ export default function Header() {
               </NavLink>
             ))}
 
-            <button
-              onClick={() => navigate(`/conference/${slug}/registration-form`)}
-              className="hidden md:block bg-cyan-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-300 transition"
-            >
-              Register Now
-            </button>
+            {registerItem && (
+              <button
+                onClick={() => navigate(registerItem.resolved_url)}
+                className="hidden md:block bg-cyan-400 text-black px-5 py-2 rounded-full font-semibold hover:bg-cyan-300 transition"
+              >
+                Register Now
+              </button>
+            )}
           </nav>
 
           {/* Mobile Toggle */}
@@ -101,12 +119,17 @@ export default function Header() {
               </NavLink>
             ))}
 
-            <button
-              onClick={() => navigate(`/conference/${slug}/registration-form`)}
-              className="w-full bg-cyan-400 text-black py-2 rounded-full font-semibold"
-            >
-              Register Now
-            </button>
+            {registerItem && (
+              <button
+                onClick={() => {
+                  navigate(registerItem.resolved_url);
+                  setOpen(false);
+                }}
+                className="w-full bg-cyan-400 text-black py-2 rounded-full font-semibold"
+              >
+                Register Now
+              </button>
+            )}
           </div>
         )}
       </div>

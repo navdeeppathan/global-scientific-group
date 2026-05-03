@@ -10,6 +10,7 @@ import "swiper/css";
 import "swiper/css/autoplay";
 
 import { Autoplay } from "swiper/modules";
+import { useNavigate, useParams } from "react-router-dom";
 const Home = ({ data }) => {
   return (
     <div className="bg-[#133C49]">
@@ -32,6 +33,10 @@ function ConferenceHero({ data }) {
   // ✅ Prevent crash if (!data) return null;
   if (!data) return null;
   const { hero, conference } = data;
+
+  const { slug } = useParams();
+
+  const navigate = useNavigate();
 
   console.log("conference data:-", data);
 
@@ -140,12 +145,18 @@ function ConferenceHero({ data }) {
 
         <div className="flex gap-4">
           {hero?.show_register && (
-            <button className="bg-[#01D4FF] text-[#072A41] px-[16px] py-[8px] rounded-[12px] font-semibold">
+            <button
+              onClick={() => navigate(`/conference/${slug}/register/`)}
+              className="bg-[#01D4FF] text-[#072A41] px-[16px] py-[8px] rounded-[12px] font-semibold"
+            >
               Register Now
             </button>
           )}
           {hero?.show_abstract && (
-            <button className="border border-[#01D4FF] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] font-semibold">
+            <button
+              onClick={() => navigate(`/conference/${slug}/submitabstract`)}
+              className="border border-[#01D4FF] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] font-semibold"
+            >
               Submit Abstract
             </button>
           )}
@@ -164,6 +175,10 @@ function CountdownBar() {
     minutes: 18,
     seconds: 38,
   });
+
+  const { slug } = useParams();
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -212,7 +227,10 @@ function CountdownBar() {
           </div>
 
           {/* Button */}
-          <button className="flex items-center gap-2 bg-[#01D4FF] hover:bg-cyan-300 text-[#0B2C36] text-[13px] px-5 py-2.5 rounded-full font-semibold whitespace-nowrap">
+          <button
+            onClick={() => navigate(`/conference/${slug}/register/`)}
+            className="flex items-center gap-2 bg-[#01D4FF] hover:bg-cyan-300 text-[#0B2C36] text-[13px] px-5 py-2.5 rounded-full font-semibold whitespace-nowrap"
+          >
             Book Tickets Now
             <span className="bg-white rounded-full w-5 h-5 flex items-center justify-center text-black text-xs">
               →
@@ -801,6 +819,8 @@ function Gallery({ data }) {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(true);
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetchGallery = async () => {
       try {
@@ -896,7 +916,10 @@ function Gallery({ data }) {
 
         {/* Button */}
         <div className="mt-12 flex justify-center">
-          <button className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full hover:bg-[#00c2ea] transition">
+          <button
+            onClick={() => navigate("/main/gallery")}
+            className="flex items-center gap-4 bg-[#01D4FF] text-[#00343a] text-[14px] font-semibold px-8 py-4 rounded-full hover:bg-[#00c2ea] transition"
+          >
             View More
             <span className="w-7 h-7 flex items-center justify-center bg-white text-black rounded-full">
               →
