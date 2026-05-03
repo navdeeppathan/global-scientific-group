@@ -127,14 +127,14 @@ function JournalsHero() {
 
 function CategoriesGrid({ data = [] }) {
   // ✅ only enabled + sort by display_order
-  const categories = data.subjects
+  const categories = data?.subjects
     .filter((item) => item.is_enabled)
     .sort((a, b) => a.display_order - b.display_order);
 
   return (
     <div className="px-6 md:px-16 py-10">
       <div className="max-w-7xl mx-auto grid md:grid-cols-3 gap-6">
-        {categories.map((cat) => (
+        {categories?.map((cat) => (
           <div
             key={cat.id}
             className="bg-[#E7F9FF] border border-[#C6E4EF] rounded-[16px] p-[16px] hover:shadow-md transition"
@@ -176,9 +176,9 @@ function CategoriesGrid({ data = [] }) {
               </div>
 
               {/* VIEW LINK */}
-              <button className="text-[#00849F] text-[14px] font-semibold hover:underline">
+              {/* <button className="text-[#00849F] text-[14px] font-semibold hover:underline">
                 View
-              </button>
+              </button> */}
             </div>
           </div>
         ))}
