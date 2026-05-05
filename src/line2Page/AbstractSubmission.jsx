@@ -250,7 +250,7 @@ function SubmissionSection({ guidelines, topics, dates, slug }) {
               </button>
 
               <button
-                onClick={() => navigate(`/conference/${slug}/registration`)}
+                onClick={() => navigate(`/conference/${slug}/register`)}
                 className="border border-[#01D4FF] text-[#01D4FF] px-[16px] py-[8px] rounded-[12px] text-[14px]"
               >
                 Register Now

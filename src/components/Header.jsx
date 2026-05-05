@@ -249,7 +249,7 @@ export default function Header() {
           </div>
           {/* </NavLink> */}
           <NavLink
-            to="/main/journals"
+            to="/journals"
             className={mobileNavClass}
             onClick={() => setOpen(false)}
           >

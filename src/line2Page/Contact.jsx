@@ -2,6 +2,7 @@ import { Phone, Mail, MessageCircle } from "lucide-react";
 import { useState } from "react";
 import http from "../service/http";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 const Contact = ({ data }) => {
   const { slug } = useParams();
 
@@ -25,20 +26,26 @@ const Contact = ({ data }) => {
     try {
       const res = await http.post(`conferences/${slug}/contact/`, form);
 
-      if (res.status === 200) {
-        alert("Message sent successfully");
-        // reset form
-        setForm({
-          first_name: "",
-          last_name: "",
-          email: "",
-          website: "",
-          message: "",
-        });
-      }
+      toast("Message sent successfully");
+      // reset form
+      setForm({
+        first_name: "",
+        last_name: "",
+        email: "",
+        website: "",
+        message: "",
+      });
     } catch (err) {
       console.error(err);
-      alert("Server error ❌");
+      const errors = err?.response?.data;
+
+      if (errors) {
+        Object.keys(errors).forEach((field) => {
+          errors[field].forEach((message) => {
+            toast.error(message);
+          });
+        });
+      }
     }
   };
   return (

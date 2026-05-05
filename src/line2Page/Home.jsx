@@ -208,7 +208,7 @@ function CountdownBar() {
         </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-4">
+        <div className="flex flex-col md:flex-row items-center gap-4">
           {/* Info */}
           <div className="flex flex-col gap-2">
             <div className="flex items-center gap-2 bg-[#1e4b52] px-4 py-2 rounded-md text-[12px] text-white min-w-[230px]">

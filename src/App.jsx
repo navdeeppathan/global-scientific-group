@@ -4,10 +4,20 @@ import FirstLine from "./containers/FirstLine";
 import SecondLine from "./containers/SecondLine";
 import ThirdLine from "./containers/ThirdLine";
 import WhatsAppFloat from "./components/WhatsAppFloat";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export default function App() {
   return (
     <BrowserRouter>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={3000}
+        hideProgressBar={false}
+        closeOnClick
+        pauseOnHover
+        draggable
+      />
       <Routes>
         {/* <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />

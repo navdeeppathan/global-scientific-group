@@ -3,6 +3,7 @@
 import { use, useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import http from "../service/http";
+import { toast } from "react-toastify";
 
 export default function SubmitAbstract() {
   const navigate = useNavigate();
@@ -89,12 +90,20 @@ export default function SubmitAbstract() {
         },
       });
 
-      alert("Abstract submitted successfully!");
+      toast("Abstract submitted successfully!");
 
       navigate("/conference/success");
     } catch (err) {
       console.error(err);
-      alert("Submission failed");
+      const errors = err?.response?.data;
+
+      if (errors) {
+        Object.keys(errors).forEach((field) => {
+          errors[field].forEach((message) => {
+            toast.error(message);
+          });
+        });
+      }
     } finally {
       setLoading(false);
     }

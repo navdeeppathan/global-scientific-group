@@ -20,6 +20,7 @@ export default Home;
 
 function JournalsHero({ hero }) {
   const [search, setSearch] = useState("");
+  const navigate = useNavigate();
 
   return (
     <div className="relative w-full h-screen">
@@ -68,11 +69,17 @@ function JournalsHero({ hero }) {
         </p>
 
         <div className="flex gap-4 mt-6 flex-wrap justify-center">
-          <button className="bg-[#01D4FF] text-[#0B2C36] px-6 py-2 rounded-full text-sm font-semibold">
+          <button
+            onClick={() => navigate("/journals/all-journals")}
+            className="bg-[#01D4FF] text-[#0B2C36] px-6 py-2 rounded-full text-sm font-semibold"
+          >
             {hero?.explore_button_text}
           </button>
 
-          <button className="border border-[#01D4FF] text-[#01D4FF] px-6 py-2 rounded-full text-sm">
+          <button
+            onClick={() => navigate("/journals/submit-manuscript")}
+            className="border border-[#01D4FF] text-[#01D4FF] px-6 py-2 rounded-full text-sm"
+          >
             {hero?.submit_button_text}
           </button>
         </div>
@@ -533,6 +540,8 @@ function WhyPublish({ why_choose }) {
     },
   ];
 
+  const navigate = useNavigate();
+
   return (
     <div className="w-full bg-[#133C49] py-16 flex justify-center">
       <div className="w-[90%]">
@@ -572,7 +581,10 @@ function WhyPublish({ why_choose }) {
               ))}
             </div>
 
-            <button className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2 ">
+            <button
+              onClick={() => navigate("/journals/submit-manuscript")}
+              className="mt-8 bg-[#01D4FF] text-[#0B2C36] px-[16px] py-[10px] rounded-[50px] text-[12px] font-semibold flex items-center gap-2 "
+            >
               Start Your Submission
               <span className="bg-[#FFFFFF] text-[#0B2C36]  w-5 h-5 rounded-full flex items-center justify-center text-xs">
                 →

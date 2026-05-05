@@ -12,6 +12,7 @@ import {
   UploadCloud,
 } from "lucide-react";
 import http from "../service/http";
+import { toast } from "react-toastify";
 
 export default function SubmitManuscript({ journals }) {
   const [step, setStep] = useState(0);
@@ -463,6 +464,7 @@ function UploadFiles({ onNext, onPrev, form, setForm }) {
           required
           field="manuscript_file"
           setForm={setForm}
+          form={form}
           desc="Upload your manuscript in Word format (.doc, .docx)"
         />
 
@@ -471,6 +473,7 @@ function UploadFiles({ onNext, onPrev, form, setForm }) {
           title="Cover Letter (Optional)"
           field="cover_letter"
           setForm={setForm}
+          form={form}
           desc="A letter addressed to the Editor-in-Chief"
         />
 
@@ -479,6 +482,7 @@ function UploadFiles({ onNext, onPrev, form, setForm }) {
           title="Supplementary Materials (Optional)"
           field="supplementary_materials"
           setForm={setForm}
+          form={form}
           desc="Figures, data files, or additional materials"
         />
 
@@ -503,7 +507,8 @@ function UploadFiles({ onNext, onPrev, form, setForm }) {
   );
 }
 
-function UploadCard({ title, desc, required, field, setForm }) {
+function UploadCard({ title, desc, required, field, setForm, form }) {
+  const file = form?.[field];
   return (
     <div className="border-2 border-dashed border-[#C6E4EF] rounded-xl pt-[40px] pb-[40px] text-center mb-5 bg-[#E7F9FF]">
       {/* ICON */}
@@ -521,6 +526,10 @@ function UploadCard({ title, desc, required, field, setForm }) {
       <p className="text-[12px] md:text-[24px] text-[#A9ACB4] mt-1 mb-3">
         {desc}
       </p>
+      {/* FILE NAME (NEW) */}
+      {file && (
+        <p className="text-[13px] text-green-600 mb-2">📄 {file.name}</p>
+      )}
 
       {/* BUTTON */}
       <label className="inline-block cursor-pointer mt-4">
@@ -660,8 +669,10 @@ function Declarations({ onNext, onPrev, form, setForm }) {
 }
 
 function ReviewSubmit({ onPrev, form }) {
+  const [loading, setLoading] = useState(false);
   const handleSubmit = async () => {
     try {
+      setLoading(true);
       const formData = new FormData();
 
       // append all fields
@@ -696,9 +707,21 @@ function ReviewSubmit({ onPrev, form }) {
       // console.log(res.data);
 
       // success
-      alert("Submitted Successfully!");
+      toast("Submitted Successfully!");
+      window.location.reload();
     } catch (err) {
       console.error(err);
+      const errors = err?.response?.data;
+
+      if (errors) {
+        Object.keys(errors).forEach((field) => {
+          errors[field].forEach((message) => {
+            toast.error(message);
+          });
+        });
+      }
+    } finally {
+      setLoading(false);
     }
   };
   return (
@@ -800,7 +823,7 @@ function ReviewSubmit({ onPrev, form }) {
             className="flex items-center gap-2 px-[16px] py-[12px] bg-[#01D4FF] text-[#133C49] rounded-lg text-[14px] font-normal"
           >
             <Send size={20} />
-            Submit Manuscript
+            {loading ? "Submitting..." : "Submit Manuscript"}
           </button>
         </div>
       </div>
