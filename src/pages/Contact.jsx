@@ -1,6 +1,7 @@
 import { Phone, Mail, MessageCircle } from "lucide-react";
 import http from "../service/http";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 const Contact = () => {
   const [loading, setLoading] = useState(true);
   const [contact, setContact] = useState(null);
@@ -19,14 +20,17 @@ const Contact = () => {
     });
   };
 
+  const [loading2, setLoading2] = useState(false);
+
   const handleSubmit = async () => {
     try {
+      setLoading2(true);
       if (!form.first_name || !form.email || !form.message) {
-        alert("Please fill required fields");
+        toast("Please fill required fields");
         return;
       }
-      await http.post("/core/contact", form);
-      alert("Message sent successfully");
+      await http.post("/core/contact/", form);
+      toast("Message sent successfully");
 
       // reset form
       setForm({
@@ -38,7 +42,17 @@ const Contact = () => {
       });
     } catch (err) {
       console.error(err);
-      alert("Something went wrong");
+      const errors = err?.response?.data;
+
+      if (errors) {
+        Object.keys(errors).forEach((field) => {
+          errors[field].forEach((message) => {
+            toast.error(message || "Something went wrong");
+          });
+        });
+      }
+    } finally {
+      setLoading2(false);
     }
   };
 
@@ -96,7 +110,7 @@ const Contact = () => {
 
               <input
                 name="email"
-                value={form.first_name}
+                value={form.email}
                 onChange={handleChange}
                 placeholder="Email *"
                 className="w-full h-[48px] px-4 rounded-[12px] border border-[#C6E4EF] bg-transparent text-[#133C49] text-[18px] outline-none placeholder:text-[#8aa3ad]"
@@ -123,9 +137,10 @@ const Contact = () => {
             {/* BUTTON */}
             <button
               onClick={handleSubmit}
+              disabled={loading2}
               className="w-full h-[48px] bg-[#00849F] hover:bg-[#0c6b79] text-white text-[14px] font-medium rounded-[12px] transition"
             >
-              Submit
+              {loading2 ? "Sending..." : "Send Message"}
             </button>
           </div>
 

@@ -55,7 +55,7 @@ export default function TeamSection() {
         </h2>
 
         {/* Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* {data?.map((member) => (
             <div
               key={member.id}
@@ -88,7 +88,7 @@ export default function TeamSection() {
                 <img
                   src={member.photo}
                   alt={member.name}
-                  className="w-full h-full object-cover"
+                  className="w-[244px] h-[244px] object-cover rounded-t-full rounded-r-full"
                 />
               </div>
 
