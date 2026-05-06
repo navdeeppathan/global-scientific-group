@@ -32,6 +32,7 @@ const AboutJournals = () => {
 export default AboutJournals;
 
 function JournalsHero({ data }) {
+  const navigate = useNavigate();
   return (
     <div className="bg-[#0B2C36] px-6 md:px-16 py-16 border-b border-[#2C5B63] pt-40">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row gap-8 items-center md:items-start">
@@ -93,11 +94,19 @@ function JournalsHero({ data }) {
 
           {/* BUTTONS */}
           <div className="flex gap-4 mt-6">
-            <button className="bg-[#01D4FF]  text-[#072A41] text-[14px] px-[12px] py-[8px] rounded-[12px] font-medium hover:opacity-90">
+            <button
+              onClick={() => navigate("/journals/submit-manuscript")}
+              className="bg-[#01D4FF]  text-[#072A41] text-[14px] px-[12px] py-[8px] rounded-[12px] font-medium hover:opacity-90"
+            >
               Submit Manuscript
             </button>
 
-            <button className="border border-[#01D4FF] text-[#01D4FF] text-[14px] px-[12px] py-[8px] rounded-[12px] hover:bg-[#00D4FF] hover:text-black transition">
+            <button
+              onClick={() => {
+                window.open(data?.guidelines_file, "_blank");
+              }}
+              className="border border-[#01D4FF] text-[#01D4FF] text-[14px] px-[12px] py-[8px] rounded-[12px] hover:bg-[#00D4FF] hover:text-black transition"
+            >
               Download Guidelines
             </button>
           </div>

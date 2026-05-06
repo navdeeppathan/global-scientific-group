@@ -403,6 +403,7 @@ function FeaturedJournals({ featured_journals }) {
           {featured_journals?.map((item, index) => (
             <div
               key={index}
+              onClick={() => navigate(`/journals/about-journals/${item?.slug}`)}
               className="group relative bg-[#133C49] border border-[#235262] rounded-[16px] 
               pt-[24px] pb-[16px] px-[16px] text-left overflow-hidden
               transition-all duration-300 cursor-pointer
