@@ -40,7 +40,13 @@ const FirstLine = () => {
         />
         <Route
           path="about"
-          element={<About about={data?.about} events={data?.gallery_events} />}
+          element={
+            <About
+              data={data}
+              about={data?.about}
+              events={data?.gallery_events}
+            />
+          }
         />
         <Route path="blogs" element={<Blog />} />
         <Route path="blogs-details" element={<BlogDetails />} />

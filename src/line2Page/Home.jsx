@@ -36,6 +36,28 @@ function ConferenceHero({ data }) {
 
   const { slug } = useParams();
 
+  const [banners, setBanners] = useState([]);
+
+  useEffect(() => {
+    const fetchCommon = async () => {
+      try {
+        // Banner API
+        const resBanner = await http.get(`/conferences/${slug}/banners/`);
+
+        console.log("banners>>>", resBanner?.data);
+
+        // store banners
+        setBanners(resBanner.data);
+      } catch (err) {
+        console.error(err);
+      }
+    };
+
+    if (slug) {
+      fetchCommon();
+    }
+  }, [slug]);
+
   const navigate = useNavigate();
 
   console.log("conference data:-", data);
@@ -95,7 +117,7 @@ function ConferenceHero({ data }) {
     // </div>
     <div className="relative w-full h-screen overflow-hidden">
       {/* SWIPER */}
-      <Swiper
+      {/* <Swiper
         modules={[Autoplay]}
         autoplay={{ delay: 3000, disableOnInteraction: false }}
         loop={true}
@@ -106,14 +128,34 @@ function ConferenceHero({ data }) {
           : [conference?.banner_image]
         ).map((img, index) => (
           <SwiperSlide key={index} className="relative w-full h-full">
-            {/* IMAGE */}
+            
             <img
               src={img || "/conference.png"}
               alt="conference"
               className="w-full h-full object-cover"
             />
 
-            {/* OPTIONAL OVERLAY */}
+            
+            <div className="absolute inset-0 bg-[#0b3c44]/30"></div>
+          </SwiperSlide>
+        ))}
+      </Swiper> */}
+      <Swiper
+        modules={[Autoplay]}
+        autoplay={{ delay: 3000, disableOnInteraction: false }}
+        loop={true}
+        className="w-full h-full"
+      >
+        {banners?.map((banner) => (
+          <SwiperSlide key={banner.id} className="relative w-full h-full">
+            {/* IMAGE */}
+            <img
+              src={banner.image || "/conference.png"}
+              alt="conference-banner"
+              className="w-full h-full object-cover"
+            />
+
+            {/* OVERLAY */}
             <div className="absolute inset-0 bg-[#0b3c44]/30"></div>
           </SwiperSlide>
         ))}

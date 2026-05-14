@@ -24,10 +24,18 @@ export default function SubmitAbstract() {
     fetchAbstract();
   }, []);
 
-  const countryCityMap = {
-    India: ["Delhi", "Mumbai", "Bangalore", "Chennai"],
-    USA: ["New York", "Los Angeles", "Chicago", "Houston"],
-  };
+  const countryOptions = [
+    {
+      code: "IN",
+      name: "India",
+      cities: ["Delhi", "Mumbai", "Bangalore", "Chennai"],
+    },
+    {
+      code: "US",
+      name: "USA",
+      cities: ["New York", "Los Angeles", "Chicago", "Houston"],
+    },
+  ];
 
   const [form, setForm] = useState({
     title: "",
@@ -65,7 +73,9 @@ export default function SubmitAbstract() {
     }));
   };
 
-  const cities = countryCityMap[form.country] || [];
+  const selectedCountry = countryOptions.find((c) => c.code === form.country);
+
+  const cities = selectedCountry?.cities || [];
 
   const [loading, setLoading] = useState(false);
 
@@ -84,15 +94,26 @@ export default function SubmitAbstract() {
         formData.append(key, form[key]);
       });
 
-      await http.post(`abstracts/${slug}/abstract/submit/`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
+      const res = await http.post(
+        `abstracts/${slug}/abstract/submit/`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        },
+      );
+
+      // toast("Abstract submitted successfully!");
+
+      // navigate("/conference/success");
+      toast.success("Abstract submitted successfully!");
+
+      navigate(`/conference/${slug}/success`, {
+        state: {
+          submission: res.data,
         },
       });
-
-      toast("Abstract submitted successfully!");
-
-      navigate("/conference/success");
     } catch (err) {
       console.error(err);
       const errors = err?.response?.data;
@@ -115,9 +136,11 @@ export default function SubmitAbstract() {
         <h1 className="text-[28px] md:text-[42px] font-semibold text-[#133C49] mb-2">
           Submit Your <span className="text-[#00849F]">Abstract</span>
         </h1>
-        <p className="text-[#133C49] text-[12px] mb-8">
-          {abstract?.deadline?.label} : {abstract?.deadline?.date}
-        </p>
+        {abstract?.deadline?.label && (
+          <p className="text-[#133C49] text-[12px] mb-8">
+            {abstract?.deadline?.label} : {abstract?.deadline?.date}
+          </p>
+        )}
 
         {/* Layout */}
         <div className="grid md:grid-cols-[1fr_320px] gap-6">
@@ -192,7 +215,7 @@ export default function SubmitAbstract() {
                     Select Country/Region
                     <span className="text-[#FF3939]">*</span>
                   </label>
-                  <select
+                  {/* <select
                     name="country"
                     value={form.country}
                     onChange={handleChange}
@@ -201,6 +224,20 @@ export default function SubmitAbstract() {
                     <option value="">Select</option>
                     <option value="India">India</option>
                     <option value="USA">USA</option>
+                  </select> */}
+                  <select
+                    name="country"
+                    value={form.country}
+                    onChange={handleChange}
+                    className="w-full mt-1 border border-[#C6E4EF] bg-[#E7F9FF] rounded-[12px] p-[16px] text-sm text-[#00849F] focus:outline-none focus:border-[#01D4FF]"
+                  >
+                    <option value="">Select</option>
+
+                    {countryOptions.map((country) => (
+                      <option key={country.code} value={country.code}>
+                        {country.name}
+                      </option>
+                    ))}
                   </select>
                 </div>
 
@@ -227,14 +264,32 @@ export default function SubmitAbstract() {
                     ))}
                   </select>
                 </div>
-                <Input
-                  label="Interested In"
-                  name="interested_in"
-                  value={form.interested_in}
-                  onChange={handleChange}
-                  placeholder="Enter Interested In"
-                  star
-                />
+                <div>
+                  <label className="text-[14px] text-[#133C49] font-medium">
+                    Interested In <span className="text-[#FF3939]">*</span>
+                  </label>
+
+                  <select
+                    name="interested_in"
+                    value={form.interested_in}
+                    onChange={handleChange}
+                    className="w-full mt-1 border border-[#C6E4EF] bg-[#E7F9FF] rounded-[12px] p-[16px] text-sm text-[#00849F] focus:outline-none focus:border-[#01D4FF]"
+                  >
+                    <option value="">Select Interested In</option>
+                    <option value="Web Development">Web Development</option>
+                    <option value="App Development">App Development</option>
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Digital Marketing">Digital Marketing</option>
+                    <option value="Graphic Design">Graphic Design</option>
+                    <option value="SEO">SEO</option>
+                    <option value="E-Commerce">E-Commerce</option>
+                    <option value="Software Testing">Software Testing</option>
+                    <option value="Cloud Computing">Cloud Computing</option>
+                    <option value="AI / Machine Learning">
+                      AI / Machine Learning
+                    </option>
+                  </select>
+                </div>
 
                 {/* Full width */}
                 <div className="md:col-span-2">
@@ -360,7 +415,7 @@ export default function SubmitAbstract() {
 
             {/* Buttons */}
             <div className="flex flex-wrap items-center justify-center gap-4">
-              <button
+              {/* <button
                 onClick={handleSubmit}
                 disabled={loading}
                 className={`px-[16px] py-[8px] rounded-[12px] text-[14px] font-semibold transition
@@ -370,6 +425,16 @@ export default function SubmitAbstract() {
                     : "bg-[#01D4FF] text-[#072A41] hover:opacity-90"
                 }`}
                 className="bg-[#01D4FF] text-[#072A41] px-[16px] py-[8px] rounded-[12px] text-[14px] font-semibold"
+              > */}
+              <button
+                onClick={handleSubmit}
+                disabled={loading}
+                className={`px-[16px] py-[8px] rounded-[12px] text-[14px] font-semibold transition
+                ${
+                  loading
+                    ? "bg-[#01D4FF]/60 text-[#072A41] cursor-not-allowed"
+                    : "bg-[#01D4FF] text-[#072A41] hover:opacity-90"
+                }`}
               >
                 {loading ? "Submitting..." : "Submit Abstract"}
               </button>
@@ -398,7 +463,11 @@ export default function SubmitAbstract() {
               <img
                 // src="/person.png"
 
-                src={abstract?.side_image.image}
+                src={
+                  abstract?.side_image.image
+                    ? abstract?.side_image.image
+                    : "/person.png"
+                }
                 alt="person"
                 className="w-full h-full object-cover"
               />

@@ -3,13 +3,13 @@ import EventSchedule from "../components/EventSchedule";
 import TeamSection from "../components/TeamSection";
 import TestimonialsAbout from "../components/TestimonialsAbout";
 
-const About = ({ about, events }) => {
+const About = ({ data, about, events }) => {
   return (
     <div>
       <AboutHero about={about} />
       <AboutContent about={about} />
       <StatsSection />
-      <EventSchedule events={events} />
+      <EventSchedule data={data} events={events} />
       <TeamSection />
       <TestimonialsAbout />
     </div>

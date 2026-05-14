@@ -121,7 +121,7 @@ const Home = ({ data, events }) => {
   return (
     <div>
       {/* <HeroSection /> */}
-      <HeroSectionWrapper />
+      <HeroSectionWrapper data={data} />
       <section className="bg-[#0f3b3f] text-white py-16 px-6 md:px-16">
         <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-10 items-center">
           {/* LEFT IMAGE GRID */}
@@ -371,7 +371,9 @@ const Home = ({ data, events }) => {
 
                   {/* Button */}
                   <button
-                    onClick={() => navigate("/journals/submit-manuscript")}
+                    onClick={() =>
+                      navigate(`/conference/${data?.conferences[0]?.slug}`)
+                    }
                     className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] text-[12px] sm:text-[13px] font-semibold px-5 py-2.5 rounded-full hover:bg-[#00c2ea] transition"
                   >
                     RESERVE MY SEAT
@@ -396,7 +398,7 @@ const Home = ({ data, events }) => {
 
 export default Home;
 
-function HeroSectionWrapper() {
+function HeroSectionWrapper({ data }) {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
@@ -407,10 +409,15 @@ function HeroSectionWrapper() {
     return () => window.removeEventListener("resize", check);
   }, []);
 
-  return isMobile ? <HeroSectionMobile /> : <HeroSection />;
+  return isMobile ? (
+    <HeroSectionMobile data={data} />
+  ) : (
+    <HeroSection data={data} />
+  );
 }
 
-function HeroSection() {
+function HeroSection({ data }) {
+  console.log("data of confrerence:-", data?.conferences[0]?.slug);
   const targetDate = new Date("2026-03-30T18:00:00").getTime();
 
   const [timeLeft, setTimeLeft] = useState(getTime());
@@ -550,7 +557,12 @@ function HeroSection() {
                 {/* <button className="flex items-center gap-3 bg-[#38d9ff] text-[#00343a] px-6 py-3 rounded-full text-sm font-semibold">
                   RESERVE MY SEAT
                 </button> */}
-                <button className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] px-6 py-3 rounded-full text-[14px] font-semibold shadow-md hover:bg-[#22c7ee] transition">
+                <button
+                  onClick={() =>
+                    navigate(`/conference/${data?.conferences[0]?.slug}`)
+                  }
+                  className="flex items-center gap-3 bg-[#01D4FF] text-[#00343a] px-6 py-3 rounded-full text-[14px] font-semibold shadow-md hover:bg-[#22c7ee] transition"
+                >
                   RESERVE MY SEAT
                   <span className="w-6 h-6 flex items-center justify-center bg-white text-black rounded-full text-xs">
                     →
